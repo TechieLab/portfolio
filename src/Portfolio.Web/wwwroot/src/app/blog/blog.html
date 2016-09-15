@@ -1,0 +1,48 @@
+ <div class="container">
+    <div class="row">
+        <div class="col-md-7">
+         
+            <div class="post text clearfix panel panel-default" *ngFor="#post of postItem">
+             <div class="panel-body">
+                <h2><a  [href]="post.pageUrl">
+                      {{post.title}}</a>
+                        </h2>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.date_label}}</p>
+                <hr>
+                <p>{{post.description}}</p>
+                 <hr>
+                <div class="clearfix">
+                <p class="read_more_container pull-left col-xs-4">
+                    <a [href]="post.pageUrl" class="read_more">Keep reading</a>
+                </p>
+                
+                <p class="clearfix pull-right col-xs-6">
+                    <a class="pull-right col-xs-3" (click)="incrementVote(post)"><span class="glyphicon glyphicon-thumbs-up"></span> {{post.upvotes}} </a>
+                    <a class="pull-right col-xs-3" (click)="decrementVote(post)"><span class="glyphicon glyphicon-thumbs-down"></span>{{post.downvotes}}</a>
+
+                 </p>
+                </div>
+                <hr style="border-color:rgba(0, 0, 0, 0.25)">
+            </div>
+            </div>
+        
+       <!--
+                <h2 class="text-danger">sorry somewent wrong , the blog is not loading due to some network problem</h2>
+            </div> -->
+
+          
+
+        </div>
+        <div class="col-md-4 pull-right">
+            <div class="well">
+                <h4>Recent Posts:</h4>
+                <div class="widget" id="TumblrRecentPosts"></div>
+                <hr>
+                <a href="http://blog.startbootstrap.com">Back to Blog Home</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div> 
+
+<h2>blog blog</h2>
