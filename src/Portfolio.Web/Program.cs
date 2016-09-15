@@ -15,6 +15,7 @@ namespace Portfolio.Web
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseWebRoot(Directory.GetCurrentDirectory() + "/wwwroot/dist/client")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

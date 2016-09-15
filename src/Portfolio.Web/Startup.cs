@@ -37,6 +37,24 @@ namespace Portfolio.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            var logger = loggerFactory.CreateLogger("Configure Endpoint");
+            logger.LogDebug("Server Configured......");
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/index.html"; // Put your Angular root page here 
+                    await next();
+                }
+            });
+
+            app.UseMvcWithDefaultRoute();
             app.UseMvc();
         }
     }
