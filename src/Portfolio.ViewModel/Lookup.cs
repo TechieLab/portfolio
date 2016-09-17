@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Portfolio.Services.Impl
+namespace Portfolio.ViewModels
 {
-    public class Class1
+    public class Lookup
     {
-        public Class1()
-        {
-        }
+
     }
 }

@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Portfolio.ViewModels")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("Portfolio.ViewModel")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("42b7fa2b-8664-4959-97f8-8d9eec1613ae")]
+[assembly: Guid("b413cb82-ff0c-4768-8b0c-bd6a634792d2")]

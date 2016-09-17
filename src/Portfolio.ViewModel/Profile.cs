@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Portfolio.Services
+namespace Portfolio.ViewModels
 {
-    public class Class1
+    public class Profile
     {
-        public Class1()
-        {
-        }
     }
 }

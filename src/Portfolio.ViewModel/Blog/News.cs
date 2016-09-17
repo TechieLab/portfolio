@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Portfolio.Models
+namespace Portfolio.ViewModels.Blog
 {
-    public class Class1
+    class News
     {
-        public Class1()
-        {
-        }
     }
 }

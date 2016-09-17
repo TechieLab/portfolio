@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Portfolio.Core;
 
 namespace Portfolio.Web
 {
     public class Startup
     {
+        private IMongoDbManager _manager;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -28,12 +31,19 @@ namespace Portfolio.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+
+            //var connection = @"Server=(localdb)\ProjectsV13;Initial Catalog=PortfolioDB;Trusted_Connection=True;";
+           // services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
+
+            services.AddSingleton<IMongoDbManager, MongoDbManager>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMongoDbManager manager)
         {
+            _manager = manager;
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -42,6 +52,20 @@ namespace Portfolio.Web
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+
+                app.UseBrowserLink();
+
+                _manager.Connect("mongodb://localhost:27017");
+                _manager.SetDatabase("music-storedb");
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.Use(async (context, next) =>
             {
