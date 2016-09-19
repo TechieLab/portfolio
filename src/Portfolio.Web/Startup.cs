@@ -7,13 +7,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
 using Portfolio.Core;
+using Portfolio.Services;
+using Portfolio.Services.Impl;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Portfolio.Web.Helpers;
 
 namespace Portfolio.Web
 {
     public class Startup
     {
         private IMongoDbManager _manager;
+        public IConfiguration Configuration { get; set; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -22,41 +30,43 @@ namespace Portfolio.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
-
-        public IConfigurationRoot Configuration { get; }
+       
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-
-            //var connection = @"Server=(localdb)\ProjectsV13;Initial Catalog=PortfolioDB;Trusted_Connection=True;";
-           // services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
-
             services.AddSingleton<IMongoDbManager, MongoDbManager>();
+
             services.AddMvc();
-        }
+
+            //services.Configure<MvcOptions>(options =>
+            //                         options
+            //                         .OutputFormatters
+            //                         .RemoveAll(formatter => formatter.Instance is XmlDataContractSerializerOutputFormatter)
+            //                               );
+
+        }     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMongoDbManager manager)
         {
             _manager = manager;
-
+            
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             var logger = loggerFactory.CreateLogger("Configure Endpoint");
             logger.LogDebug("Server Configured......");
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+            //app.UseIISPlatformHandler();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
+                
                 app.UseBrowserLink();
 
                 _manager.Connect("mongodb://localhost:27017");
@@ -66,6 +76,10 @@ namespace Portfolio.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();           
 
             app.Use(async (context, next) =>
             {
@@ -79,7 +93,7 @@ namespace Portfolio.Web
             });
 
             app.UseMvcWithDefaultRoute();
-            app.UseMvc();
+            app.UseMvc();         
         }
     }
 }

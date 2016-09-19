@@ -1747,18 +1747,19 @@
           "dnx451/Portfolio.Services.dll": {}
         }
       },
-      "Portfolio.ViewModel/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1"
-      },
-      "Portfolio.ViewModels/1.0.0": {
+      "Portfolio.Services.Impl/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "Portfolio.Core": "1.0.0",
+          "Portfolio.Models": "1.0.0",
+          "Portfolio.Services": "1.0.0"
+        },
         "compile": {
-          "dnx451/Portfolio.ViewModels.dll": {}
+          "dnx451/Portfolio.Services.Impl.dll": {}
         },
         "runtime": {
-          "dnx451/Portfolio.ViewModels.dll": {}
+          "dnx451/Portfolio.Services.Impl.dll": {}
         }
       }
     }
@@ -4756,20 +4757,17 @@
       "path": "../Portfolio.Services/project.json",
       "msbuildProject": "../Portfolio.Services/Portfolio.Services.xproj"
     },
-    "Portfolio.ViewModel/1.0.0": {
+    "Portfolio.Services.Impl/1.0.0": {
       "type": "project",
-      "path": "../Portfolio.ViewModel/project.json"
-    },
-    "Portfolio.ViewModels/1.0.0": {
-      "type": "project",
-      "path": "../Portfolio.ViewModel/project.json",
-      "msbuildProject": "../Portfolio.ViewModel/Portfolio.ViewModels.xproj"
+      "path": "../Portfolio.Services.Impl/project.json",
+      "msbuildProject": "../Portfolio.Services.Impl/Portfolio.Services.Impl.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
+      "Microsoft.AspNetCore.Mvc.ViewFeatures >= 1.0.0",
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0",
       "Microsoft.AspNetCore.Server.Kestrel >= 1.0.0",
       "Microsoft.AspNetCore.StaticFiles >= 1.0.0",
@@ -4781,10 +4779,11 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
+      "MongoDB.Driver >= 2.2.4",
       "Portfolio.Core >= 1.0.0",
       "Portfolio.Models >= 1.0.0",
       "Portfolio.Services >= 1.0.0",
-      "Portfolio.ViewModel >= 1.0.0"
+      "Portfolio.Services.Impl >= 1.0.0"
     ],
     "DNX,Version=v4.5.1": []
   },

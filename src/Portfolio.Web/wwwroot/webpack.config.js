@@ -1,37 +1,28 @@
-var webpack = require('webpack');
-var htmlwebplugin = require('html-webpack-plugin');
-var  CopyWebpackPlugin = require('copy-webpack-plugin');
+﻿/// <binding AfterBuild='Run - Development' />
 
-module.exports = {
-    entry:'./src/main.ts',
-    output:{
-        path:'dist/client',
-        filename:'app.bundle.js'
+var webpackMerge = require('webpack-merge');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var commonConfig = require('./config/webpack.common.js');
+var helpers = require('./config/helpers');
+
+module.exports = webpackMerge(commonConfig, {
+    devtool: 'eval',
+
+    output: {
+        pathinfo: true,
+        path: helpers.root('dist'),
+        publicPath: 'http://localhost:5000/',
+        filename: '[name].bundle.js',
+        chunkFilename: '[id].chunk.js'
     },
 
-    module:{
-        loaders:[
-            {test: /\.ts$/, loader: 'ts'},
-            {
-                test: /\.html$/,
-                loader: 'html'
-            }
+    plugins: [
+      new ExtractTextPlugin('[name].css')
+    ],
 
-        ]
-    },
-    devtool: 'source-map',
-    resolve:{
-        extensions:['','.js','.ts']
-    },
-    plugins:[
-        new htmlwebplugin({
-            template:'./src/index.html'
-        }),
-
-         new CopyWebpackPlugin([{
-            from: 'assets',
-            to: './assets'
-         }])
-    ]
-
-}
+    devServer: {
+        contentBase: "./dist",
+        host: "localhost",
+        port: 49345
+    }
+});
