@@ -6,6 +6,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var helpers = require('./helpers');
 var nodeExternals = require('webpack-node-externals');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
+var  CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -80,6 +81,11 @@ module.exports = {
 
     new HtmlWebpackPlugin({
         template: './src/index.html'
-    })
+    }),
+
+    new CopyWebpackPlugin([{
+      from: 'assets',
+      to: './assets'
+    }])
   ]
 };

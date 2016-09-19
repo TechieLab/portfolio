@@ -17,12 +17,6 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-      new ExtractTextPlugin('[name].css')
-    ],
-
-    devServer: {
-        contentBase: "./dist",
-        host: "localhost",
-        port: 49345
-    }
+      new ExtractTextPlugin('[name].css')      
+    ]
 });
