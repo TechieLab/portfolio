@@ -2,7 +2,8 @@
   "name": "portfolio",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm install"
+    "start": "npm install",
+    "test": "karma start ./wwwroot/config/karma.conf.js"
   },
   "license": "MIT",
   "dependencies": {
