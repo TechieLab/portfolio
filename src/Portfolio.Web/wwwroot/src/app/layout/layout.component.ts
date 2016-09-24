@@ -6,8 +6,7 @@ import {RouterOutlet} from '@angular/router';
 
 @Component({
    selector:'custom-layout',
-   template: require('./layout.html'),
-   
+   template: require('./layout.html'),   
    providers: [RouterOutlet,HeaderComponent]    
 })
 

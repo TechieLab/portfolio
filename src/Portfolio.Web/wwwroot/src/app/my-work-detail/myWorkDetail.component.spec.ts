@@ -6,6 +6,7 @@
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
 
 import {MyWorkDetailComponent} from  './my-work-detail.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('My Work Detail component:', () => {
     let component: MyWorkDetailComponent;
@@ -15,6 +16,7 @@ describe('My Work Detail component:', () => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
             declarations: [ MyWorkDetailComponent ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();

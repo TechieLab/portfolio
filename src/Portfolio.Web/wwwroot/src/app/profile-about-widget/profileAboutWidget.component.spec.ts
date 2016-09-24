@@ -4,7 +4,7 @@
 } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ProfileAboutWidgetComponent} from  './profileAboutWidget.component';
 
 describe('Profile About Widget Component:', () => {
@@ -15,6 +15,7 @@ describe('Profile About Widget Component:', () => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
             declarations: [ ProfileAboutWidgetComponent ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();

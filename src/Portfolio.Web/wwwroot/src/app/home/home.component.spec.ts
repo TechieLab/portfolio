@@ -4,7 +4,7 @@
 } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {HomeComponent} from  './home.component';
 import {ProfileComponent} from '../profile/profile.component';
 import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
@@ -19,6 +19,7 @@ describe('Home index component:', () => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
             declarations: [ HomeComponent, ProfileComponent, ProfileWidgetComponent, ProfileAboutWidgetComponent, FeedComponent ],
+             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();
