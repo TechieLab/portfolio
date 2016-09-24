@@ -12,7 +12,8 @@ import {FeedComponent} from '../feed/feed.component';
 })
 
 export class HomeComponent implements OnInit{
-  constructor(private element:ElementRef){
+
+  constructor(){
        
   }
 

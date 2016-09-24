@@ -11,14 +11,14 @@ require('zone.js/dist/sync-test');
 require('zone.js/dist/proxy'); // since zone.js 0.6.14
 require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
 
-var appContext = require.context('../src', true, /Spec$/);
+var appContext = require.context('../src', true, /.spec$/);
 
 appContext.keys().forEach(appContext);
 
 var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
-//testing.setBaseTestProviders(
-//  browser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-//  browser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS
-//);
+testing.TestBed.initTestEnvironment( 
+ browser.BrowserDynamicTestingModule, 
+ browser.platformBrowserDynamicTesting()
+);
