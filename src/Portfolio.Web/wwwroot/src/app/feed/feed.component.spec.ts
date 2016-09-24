@@ -4,11 +4,8 @@
 } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FeedComponent} from  './feed.component';
-import {ProfileComponent} from '../profile/profile.component';
-import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
-import {ProfileAboutWidgetComponent} from '../profile-about-widget/profileAboutWidget.component';
 
 describe('Feed index component:', () => {
     let component: FeedComponent;
@@ -17,7 +14,8 @@ describe('Feed index component:', () => {
     beforeEach(() => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
-            declarations: [ FeedComponent, ProfileComponent, ProfileWidgetComponent, ProfileAboutWidgetComponent, FeedComponent ],
+            declarations: [ FeedComponent ],
+             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();

@@ -6,18 +6,15 @@
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
 
 import {ProfileAboutWidgetComponent} from  './profileAboutWidget.component';
-import {ProfileComponent} from '../profile/profile.component';
-import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
-import {FeedComponent} from '../feed/feed.component';
 
-describe('Home index component:', () => {
+describe('Profile About Widget Component:', () => {
     let component: ProfileAboutWidgetComponent;
     let fixture: ComponentFixture<ProfileAboutWidgetComponent>;           
 
     beforeEach(() => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
-            declarations: [ ProfileAboutWidgetComponent, ProfileComponent, ProfileWidgetComponent, ProfileAboutWidgetComponent, FeedComponent ],
+            declarations: [ ProfileAboutWidgetComponent ],
         });
 
         TestBed.compileComponents();

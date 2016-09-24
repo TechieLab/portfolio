@@ -4,6 +4,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 import {AppComponent} from './app/app.component';
 import { NgModule }      from '@angular/core';
+import {HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {LayoutComponent} from './app/layout/layout.component';
 import {IsometricGrid} from './app/my-work/my-work.directive';
@@ -27,7 +28,8 @@ import { routing,
   bootstrap:    [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    HttpModule
   ],
 })
 

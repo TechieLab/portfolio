@@ -4,11 +4,8 @@
 } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {HeaderComponent} from  './header.component';
-import {ProfileComponent} from '../profile/profile.component';
-import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
-import {ProfileAboutWidgetComponent} from '../profile-about-widget/profileAboutWidget.component';
 
 describe('Header index component:', () => {
     let component: HeaderComponent;
@@ -17,7 +14,8 @@ describe('Header index component:', () => {
      beforeEach(() => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
-            declarations: [ HeaderComponent, ProfileComponent, ProfileWidgetComponent, ProfileAboutWidgetComponent, HeaderComponent ],
+            declarations: [ HeaderComponent],
+             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();

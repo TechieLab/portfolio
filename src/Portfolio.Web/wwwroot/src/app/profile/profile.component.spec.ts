@@ -4,20 +4,37 @@
 } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ProfileComponent} from  './profile.component';
-import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
-import {ProfileAboutWidgetComponent} from '../profile-about-widget/profileAboutWidget.component';
-import {FeedComponent} from '../feed/feed.component';
+import {ProfileService} from './profile.service';
+import {BaseRequestOptions, Http, ConnectionBackend, HttpModule} from '@angular/http';
+import {MockBackend} from '@angular/http/testing';
+import {Injector,ReflectiveInjector} from '@angular/core';
 
-describe('Home index component:', () => {
+describe('Profile component:', () => {
     let component: ProfileComponent;
     let fixture: ComponentFixture<ProfileComponent>;           
+    let profileServiceStub : {};
+    let profileService : ProfileService;
+
 
     beforeEach(() => {
         // refine the test module by declaring the test component
+        var injector = ReflectiveInjector.resolveAndCreate([
+        BaseRequestOptions,
+        MockBackend,
+        {provide: Http, useFactory:
+            function(backend, defaultOptions) {
+                return new Http(backend, defaultOptions);
+            },
+            deps: [MockBackend, BaseRequestOptions]}
+        ]);
+        var http = injector.get(Http);
+
         TestBed.configureTestingModule({
-            declarations: [ ProfileComponent, ProfileComponent, ProfileWidgetComponent, ProfileAboutWidgetComponent, FeedComponent ],
+            declarations: [ ProfileComponent ],
+            providers:[{provide: Http, useValue: http }, {provide: ProfileService, useValue: profileServiceStub }],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();
@@ -28,11 +45,14 @@ describe('Home index component:', () => {
         // get test component from the fixture
         component = fixture.componentInstance;
 
+        
+        
+         profileService = fixture.debugElement.injector.get(ProfileService);
 
     });
     
     it("should initialize proxyService correctly", () =>
     {
-        expect(component.ngOnInit).toBeDefined();
+        expect(component.getProfile).toBeDefined();
     });    
 });
