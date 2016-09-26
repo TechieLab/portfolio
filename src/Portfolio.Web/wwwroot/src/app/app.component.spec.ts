@@ -8,7 +8,7 @@ import {CUSTOM_ELEMENTS_SCHEMA,  ViewContainerRef} from '@angular/core';
 import {ActivatedRoute,RouterOutletMap} from '@angular/router';
 import {AppComponent} from './app.component';
 import {LayoutComponent} from './layout/layout.component';
-import { IsometricGrid } from './my-work/my-work.directive';
+import {HeaderComponent} from './header/header.component';
 
 describe('Home index component:', () => {
     let component: AppComponent;
@@ -21,7 +21,7 @@ describe('Home index component:', () => {
     beforeEach(() => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
-            declarations: [ AppComponent, LayoutComponent , IsometricGrid],
+            declarations: [ AppComponent, LayoutComponent, HeaderComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [{provide :ActivatedRoute, useValue: activatedRoute}, RouterOutletMap,  ViewContainerRef]
         });

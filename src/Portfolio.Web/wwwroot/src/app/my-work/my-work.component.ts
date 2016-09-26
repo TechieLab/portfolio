@@ -4,8 +4,8 @@ import {MyWorkService} from './my-work.service';
 
 @Component({
     template: require('./my-work.html'),
-    entryComponents: [IsometricGrid],
-    providers: [MyWorkService]
+    entryComponents: [],
+    providers: [MyWorkService, IsometricGrid]
 })
 
 export class MyWorkComponent {

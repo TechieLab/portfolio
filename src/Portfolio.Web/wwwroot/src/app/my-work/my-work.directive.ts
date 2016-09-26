@@ -1,8 +1,7 @@
-import { Component, ElementRef, HostListener, Input, Renderer,OnInit } from '@angular/core';
+import {Directive, Component, ElementRef, HostListener, Input, Renderer,OnInit } from '@angular/core';
 
-@Component({
-  selector: '[isometric-grid]',
-  template: ''
+@Directive({
+  selector: '[isometric-grid]'
 })
 
 export class IsometricGrid implements OnInit  {
@@ -12,9 +11,9 @@ export class IsometricGrid implements OnInit  {
  
 
   constructor(private el: ElementRef, private renderer: Renderer) {
-   }
+   
+  }  
   
-
   getRandomInt(min,max){
        return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
   }
@@ -23,9 +22,9 @@ export class IsometricGrid implements OnInit  {
       
         let self = this; 
          [].slice.call(document.querySelectorAll('.isolayer')).forEach(function(el) {
-                    // debugger;
-                    // console.log('values',el);
-                    // console.log(this);
+                    debugger;
+                    console.log('values',el);
+                    console.log(this);
                     // new window.IsoGrid(el, {
                     //     type : 'scrollable',
                     //     transform : 'translateX(-15vw) translateY(275px) rotateX(45deg) rotateZ(45deg)',

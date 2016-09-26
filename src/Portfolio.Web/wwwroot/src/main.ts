@@ -1,10 +1,11 @@
 
-import {createPlatformFactory,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {createPlatformFactory, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 import {AppComponent} from './app/app.component';
 import { NgModule }      from '@angular/core';
 import {HttpModule} from '@angular/http';
+import { FormsModule }   from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {LayoutComponent} from './app/layout/layout.component';
 import {IsometricGrid} from './app/my-work/my-work.directive';
@@ -18,23 +19,25 @@ import {BlogComponent } from './app/blog/blog.component';
 import { MyWorkComponent} from './app/my-work/my-work.component';
 import {MyWorkDetailComponent} from './app/my-work-detail/my-work-detail.component';
 import { routing,
-         appRoutingProviders }  from './app/app.routes';
+  appRoutingProviders }  from './app/app.routes';
 
 @NgModule({
-  imports:      [ BrowserModule,  routing ],
-  declarations: [ AppComponent , LayoutComponent, IsometricGrid,HeaderComponent, MyWorkDetailComponent,
-                  HomeComponent,  ProfileComponent, FeedComponent,BlogComponent , MyWorkComponent,
-                  ProfileWidgetComponent,ProfileAboutWidgetComponent],
-  bootstrap:    [ AppComponent ],
+  imports: [BrowserModule, BrowserModule,
+    FormsModule,
+    HttpModule, 
+    routing
+    ],
+  declarations: [
+    AppComponent, LayoutComponent, HeaderComponent, MyWorkDetailComponent,
+    HomeComponent, ProfileComponent, FeedComponent, BlogComponent, MyWorkComponent,
+    ProfileWidgetComponent, ProfileAboutWidgetComponent, IsometricGrid],
+  bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    appRoutingProviders,
-    HttpModule
+    appRoutingProviders
   ],
 })
 
 export class AppModule { }
 
-
-var myPlatformFactory = createPlatformFactory(platformBrowserDynamic, 'myPlatform');
-myPlatformFactory().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule);
