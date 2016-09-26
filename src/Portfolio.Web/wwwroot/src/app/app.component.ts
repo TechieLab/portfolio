@@ -17,7 +17,9 @@ import { IsometricGrid } from './my-work/my-work.directive';
 export class AppComponent implements  OnInit, OnDestroy{
      code:Subscription;
 
-     constructor(private activatedRoute: ActivatedRoute){}
+     constructor(private activatedRoute: ActivatedRoute){
+        this.code = new Subscription();
+     }
 
       ngOnInit() {
         
