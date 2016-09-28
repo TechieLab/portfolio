@@ -15,14 +15,16 @@ using Portfolio.Services.Impl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Portfolio.Web.Helpers;
+using AutoMapper;
+using Store.Web.Helpers;
 
 namespace Portfolio.Web
 {
     public class Startup
     {
         private IMongoDbManager _manager;
-        public IConfiguration Configuration { get; set; }
-
+        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+       
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -41,6 +43,8 @@ namespace Portfolio.Web
             services.AddSingleton<IMongoDbManager, MongoDbManager>();
 
             services.AddMvc();
+
+            AutoMappingConfiguration.Configure();            
 
             //services.Configure<MvcOptions>(options =>
             //                         options

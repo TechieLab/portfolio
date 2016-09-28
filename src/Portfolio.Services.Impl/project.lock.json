@@ -662,10 +662,10 @@
           "Portfolio.Models": "1.0.0"
         },
         "compile": {
-          "dnx451/Portfolio.DAL.dll": {}
+          "dnx451/PortFolio.DAL.dll": {}
         },
         "runtime": {
-          "dnx451/Portfolio.DAL.dll": {}
+          "dnx451/PortFolio.DAL.dll": {}
         }
       },
       "Portfolio.Models/1.0.0": {

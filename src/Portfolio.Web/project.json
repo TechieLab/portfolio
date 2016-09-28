@@ -1,7 +1,7 @@
-﻿{
+{
   "dependencies": {
+    "AutoMapper": "5.1.1",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
-
     //"Microsoft.NETCore.App": {
     //  "version": "1.0.0",
     //  "type": "platform"
@@ -23,7 +23,8 @@
     "Portfolio.Core": "1.0.0",
     "Portfolio.Models": "1.0.0",
     "Portfolio.Services": "1.0.0",
-    "Portfolio.Services.Impl": "1.0.0"
+    "Portfolio.Services.Impl": "1.0.0",
+    "Portfolio.ViewModel": "1.0.0"
   },
 
   "library": {

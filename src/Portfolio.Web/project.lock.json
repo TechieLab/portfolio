@@ -3,6 +3,15 @@
   "version": 2,
   "targets": {
     "DNX,Version=v4.5.1": {
+      "AutoMapper/5.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net45/AutoMapper.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -1761,10 +1770,31 @@
         "runtime": {
           "dnx451/Portfolio.Services.Impl.dll": {}
         }
+      },
+      "Portfolio.ViewModel/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1"
       }
     }
   },
   "libraries": {
+    "AutoMapper/5.1.1": {
+      "sha512": "Q3uFSWccBUE1Q9BW88C6RO2Y/iFkPztTKK1ciyx1jhWPdOi5+pvzZ2EwcJKPiV0cr2EXZUWqQOsSpA5jVjfQBg==",
+      "type": "package",
+      "path": "AutoMapper/5.1.1",
+      "files": [
+        "AutoMapper.5.1.1.nupkg.sha512",
+        "AutoMapper.nuspec",
+        "lib/net45/AutoMapper.dll",
+        "lib/net45/AutoMapper.xml",
+        "lib/netstandard1.1/AutoMapper.dll",
+        "lib/netstandard1.1/AutoMapper.xml",
+        "lib/netstandard1.3/AutoMapper.dll",
+        "lib/netstandard1.3/AutoMapper.xml",
+        "lib/portable-net45+win8+wpa81/AutoMapper.dll",
+        "lib/portable-net45+win8+wpa81/AutoMapper.xml"
+      ]
+    },
     "Libuv/1.9.0": {
       "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
@@ -4761,10 +4791,15 @@
       "type": "project",
       "path": "../Portfolio.Services.Impl/project.json",
       "msbuildProject": "../Portfolio.Services.Impl/Portfolio.Services.Impl.xproj"
+    },
+    "Portfolio.ViewModel/1.0.0": {
+      "type": "project",
+      "path": "../Portfolio.ViewModel/project.json"
     }
   },
   "projectFileDependencyGroups": {
     "": [
+      "AutoMapper >= 5.1.1",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.ViewFeatures >= 1.0.0",
@@ -4783,7 +4818,8 @@
       "Portfolio.Core >= 1.0.0",
       "Portfolio.Models >= 1.0.0",
       "Portfolio.Services >= 1.0.0",
-      "Portfolio.Services.Impl >= 1.0.0"
+      "Portfolio.Services.Impl >= 1.0.0",
+      "Portfolio.ViewModel >= 1.0.0"
     ],
     "DNX,Version=v4.5.1": []
   },
