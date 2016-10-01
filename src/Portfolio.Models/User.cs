@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Models
 {
-    public class User : BaseEntity
+    public class User : Entity, IEntity
     {
         public string Name { get; set; }
         public string Password { get; set; }
@@ -19,5 +19,6 @@ namespace Portfolio.Models
         public Nullable<int> Timeout { get; set; }       
 
         public Nullable<int> PageSize { get; set; }
+               
     }
 }

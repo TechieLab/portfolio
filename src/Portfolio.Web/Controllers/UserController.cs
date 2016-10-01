@@ -15,15 +15,28 @@ using AutoMapper;
 namespace Store.Web.Controllers
 {
     [Route("api/users")]
-    public class SongController : Controller
+    public class UserController : Controller
     {
         private readonly IUserService _userService;        
-        private readonly ILogger<SongController> _logger;
+        private readonly ILogger<UserController> _logger;
 
-        public SongController(IUserService service, ILogger<SongController> logger)
+        public UserController(IUserService service, ILogger<UserController> logger)
         {
             _userService = service;            
             _logger = logger;
+        }
+
+        // GET: api/values
+        [HttpGet("{name}")]
+        public User Get(string name)
+        {
+            _logger.LogDebug("Listing all items");
+
+            var user = _userService.GetBy(l => l.Name == name);
+
+           var result = Mapper.Map<DomainModel.User, User>(user);
+
+            return result;
         }
 
         // GET: api/values
@@ -34,9 +47,9 @@ namespace Store.Web.Controllers
 
             var user = _userService.Get(id);
 
-           var result = Mapper.Map<DomainModel.User, User>(user);
+            var result = Mapper.Map<DomainModel.User, User>(user);
 
             return result;
-        }               
+        }
     }
 }

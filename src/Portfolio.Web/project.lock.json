@@ -1260,7 +1260,7 @@
           "lib/net451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
-      "MongoDB.Bson/2.2.4": {
+      "MongoDB.Bson/2.3.0": {
         "type": "package",
         "compile": {
           "lib/net45/MongoDB.Bson.dll": {}
@@ -1269,11 +1269,11 @@
           "lib/net45/MongoDB.Bson.dll": {}
         }
       },
-      "MongoDB.Driver/2.2.4": {
+      "MongoDB.Driver/2.3.0": {
         "type": "package",
         "dependencies": {
-          "MongoDB.Bson": "2.2.4",
-          "MongoDB.Driver.Core": "2.2.4"
+          "MongoDB.Bson": "2.3.0",
+          "MongoDB.Driver.Core": "2.3.0"
         },
         "compile": {
           "lib/net45/MongoDB.Driver.dll": {}
@@ -1282,10 +1282,10 @@
           "lib/net45/MongoDB.Driver.dll": {}
         }
       },
-      "MongoDB.Driver.Core/2.2.4": {
+      "MongoDB.Driver.Core/2.3.0": {
         "type": "package",
         "dependencies": {
-          "MongoDB.Bson": "2.2.4"
+          "MongoDB.Bson": "2.3.0"
         },
         "compile": {
           "lib/net45/MongoDB.Driver.Core.dll": {}
@@ -1704,6 +1704,9 @@
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
+          "Microsoft.Extensions.Configuration": "1.0.0",
+          "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0",
           "MongoDB.Driver": "2.2.4"
         },
         "compile": {
@@ -1717,6 +1720,7 @@
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
+          "MongoDB.Driver": "2.3.0",
           "Portfolio.Core": "1.0.0",
           "Portfolio.Models": "1.0.0"
         },
@@ -1771,9 +1775,15 @@
           "dnx451/Portfolio.Services.Impl.dll": {}
         }
       },
-      "Portfolio.ViewModel/1.0.0": {
+      "Portfolio.ViewModels/1.0.0": {
         "type": "project",
-        "framework": "DNX,Version=v4.5.1"
+        "framework": "DNX,Version=v4.5.1",
+        "compile": {
+          "dnx451/Portfolio.ViewModels.dll": {}
+        },
+        "runtime": {
+          "dnx451/Portfolio.ViewModels.dll": {}
+        }
       }
     }
   },
@@ -2914,39 +2924,46 @@
         "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.xml"
       ]
     },
-    "MongoDB.Bson/2.2.4": {
-      "sha512": "Q3TLxEVx5MsoXgqHqUFAh15kGJmgv1pvgXtm4/d9E22Ee8X9jVoPC8zIgIuQddO771Zbn9chJE+5QLfgxZl25Q==",
+    "MongoDB.Bson/2.3.0": {
+      "sha512": "ImZ8Dstc+ZUxEqgIXJtFuL2+sesc+e0SwF68Wh8P3gSYLyWRL3hacNNgmE9iUgxUyYzVg4Sr55aRsHkHw9IaDw==",
       "type": "package",
-      "path": "MongoDB.Bson/2.2.4",
+      "path": "MongoDB.Bson/2.3.0",
       "files": [
         "License.rtf",
-        "MongoDB.Bson.2.2.4.nupkg.sha512",
+        "MongoDB.Bson.2.3.0.nupkg.sha512",
         "MongoDB.Bson.nuspec",
         "lib/net45/MongoDB.Bson.XML",
-        "lib/net45/MongoDB.Bson.dll"
+        "lib/net45/MongoDB.Bson.dll",
+        "lib/netstandard1.5/MongoDB.Bson.dll",
+        "lib/netstandard1.5/MongoDB.Bson.xml"
       ]
     },
-    "MongoDB.Driver/2.2.4": {
-      "sha512": "iWvQlPMSeA8oe7LqfgqZ0txY8+/Ns6qD/efR3tcMT4DgYT4W1vJZ4A8dfegeIZV3kKIiFA+L4ALgww5nfJtcBg==",
+    "MongoDB.Driver/2.3.0": {
+      "sha512": "wq4rHgUorkGMn66TNQ4kDlh/u1DihK4bB+LdLgklP6Z7tpq3Y5It25daKrq6zcoLheCoBqhjBsKHUzrfG0KUfQ==",
       "type": "package",
-      "path": "MongoDB.Driver/2.2.4",
+      "path": "MongoDB.Driver/2.3.0",
       "files": [
         "License.rtf",
-        "MongoDB.Driver.2.2.4.nupkg.sha512",
+        "MongoDB.Driver.2.3.0.nupkg.sha512",
         "MongoDB.Driver.nuspec",
         "lib/net45/MongoDB.Driver.XML",
-        "lib/net45/MongoDB.Driver.dll"
+        "lib/net45/MongoDB.Driver.dll",
+        "lib/netstandard1.5/MongoDB.Driver.dll",
+        "lib/netstandard1.5/MongoDB.Driver.xml"
       ]
     },
-    "MongoDB.Driver.Core/2.2.4": {
-      "sha512": "gdqzKYas7RMBXt36N8UWTriVitRbX+8Y57yxdNDn6DzXe7aS1tcBofAtBO8FxOtmkGY3fD9CQUbqLLNDuAfjRQ==",
+    "MongoDB.Driver.Core/2.3.0": {
+      "sha512": "CaMUxfkDkTnRR5iQ/tlVRYtJyoUAl0ToSj9/fWfQb/GYt8veQzSqu6jOLE1+KT+2HMvL6kIhX08tam+xU+iycQ==",
       "type": "package",
-      "path": "MongoDB.Driver.Core/2.2.4",
+      "path": "MongoDB.Driver.Core/2.3.0",
       "files": [
         "License.rtf",
-        "MongoDB.Driver.Core.2.2.4.nupkg.sha512",
+        "MongoDB.Driver.Core.2.3.0.nupkg.sha512",
         "MongoDB.Driver.Core.nuspec",
-        "lib/net45/MongoDB.Driver.Core.dll"
+        "lib/net45/MongoDB.Driver.Core.XML",
+        "lib/net45/MongoDB.Driver.Core.dll",
+        "lib/netstandard1.5/MongoDB.Driver.Core.dll",
+        "lib/netstandard1.5/MongoDB.Driver.Core.xml"
       ]
     },
     "Newtonsoft.Json/9.0.1": {
@@ -4792,9 +4809,10 @@
       "path": "../Portfolio.Services.Impl/project.json",
       "msbuildProject": "../Portfolio.Services.Impl/Portfolio.Services.Impl.xproj"
     },
-    "Portfolio.ViewModel/1.0.0": {
+    "Portfolio.ViewModels/1.0.0": {
       "type": "project",
-      "path": "../Portfolio.ViewModel/project.json"
+      "path": "../Portfolio.ViewModels/project.json",
+      "msbuildProject": "../Portfolio.ViewModels/Portfolio.ViewModels.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4814,12 +4832,12 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
-      "MongoDB.Driver >= 2.2.4",
+      "MongoDB.Driver >= 2.3.0",
       "Portfolio.Core >= 1.0.0",
       "Portfolio.Models >= 1.0.0",
       "Portfolio.Services >= 1.0.0",
       "Portfolio.Services.Impl >= 1.0.0",
-      "Portfolio.ViewModel >= 1.0.0"
+      "Portfolio.ViewModels >= 1.0.0"
     ],
     "DNX,Version=v4.5.1": []
   },

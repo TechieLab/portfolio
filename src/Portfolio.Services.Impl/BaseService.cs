@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Portfolio.Services.Impl
 {
@@ -60,5 +61,9 @@ namespace Portfolio.Services.Impl
 
         }
 
+        public TEntity GetBy(Expression<Func<TEntity, bool>> criteria)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

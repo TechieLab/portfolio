@@ -8,7 +8,7 @@ using Portfolio.DAL;
 
 namespace Portfolio.DAL.Impl
 {
-    public class UserRepository : BaseRespository<User>, IUserRepository<User>
+    public class UserRepository : MongoRepository<User>, IUserRepository
     {
 
     }

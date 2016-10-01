@@ -1,0 +1,50 @@
+﻿{
+  "users": [
+    {
+      "userid":  "0232",
+      "name": "Full Name",
+      "email": "romain.hoogmoed@example.com",
+      "username": "lazyduck408",
+      "password": "jokers",
+      "pagesize": "10",
+      "timeout": 30
+    },
+    {
+      "userid": "03232",
+      "name": "Full Name",
+      "email": "romain.hoogmoed@example.com",
+      "username": "lazyduck408",
+      "password": "jokers",
+      "pagesize": "10",
+      "timeout": 30
+    },
+    {
+      "userid": "02432",
+      "name": "Full Name",
+      "email": "romain.hoogmoed@example.com",
+      "username": "lazyduck408",
+      "password": "jokers",
+      "pagesize": "10",
+      "timeout": 30
+    },
+    {
+      "userid": "02352",
+      "name": "Full Name",
+      "email": "romain.hoogmoed@example.com",
+      "username": "lazyduck408",
+      "password": "jokers",
+      "pagesize": "10",
+      "timeout": 30
+    },
+    {
+      "userid": "06232",
+      "name": "Full Name",
+      "email": "romain.hoogmoed@example.com",
+      "username": "lazyduck408",
+      "password": "jokers",
+      "pagesize": "10",
+      "timeout": 30
+    }
+  ]
+  
+}
