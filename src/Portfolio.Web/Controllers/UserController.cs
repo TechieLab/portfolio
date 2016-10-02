@@ -44,7 +44,7 @@ namespace Store.Web.Controllers
         {
             _logger.LogDebug("Listing item by name -" + name);
 
-            var user = _userService.GetBy(l => l.LogonName == name);
+            var user = _userService.GetBy(l => l.UserName == name);
 
             var result = Mapper.Map<DomainModel.User, User>(user);
 

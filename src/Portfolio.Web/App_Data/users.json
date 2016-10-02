@@ -1,50 +1,49 @@
 ﻿{
   "data": [
     {
-      "userid":  "0232",
+      "userId":  "30232",
       "name": "Full Name",
-      "email": "romain.hoogmoed@example.com",
-      "username": "lazyduck408",
+      "emailId": "romain.hoogmoed@example.com",
+      "userName": "laz3yduck408",
       "password": "jokers",
-      "pagesize": "10",
+      "pageSize": "10",
       "timeout": 30
     },
     {
-      "userid": "03232",
+      "userId": "03232",
       "name": "Full Name",
-      "email": "romain.hoogmoed@example.com",
-      "username": "lazyduck408",
+      "emailId": "romain.hoogmoed@example.com",
+      "userName": "lazy3duck408",
       "password": "jokers",
-      "pagesize": "10",
+      "pageSize": "10",
       "timeout": 30
     },
     {
-      "userid": "02432",
+      "userId": "02332",
       "name": "Full Name",
-      "email": "romain.hoogmoed@example.com",
-      "username": "lazyduck408",
+      "emailId": "romain.hoogmoed@example.com",
+      "userName": "lazydu3ck408",
       "password": "jokers",
-      "pagesize": "10",
+      "pageSize": "10",
       "timeout": 30
     },
     {
-      "userid": "02352",
+      "userId": "02332",
       "name": "Full Name",
-      "email": "romain.hoogmoed@example.com",
-      "username": "lazyduck408",
+      "emailId": "romain.hoogmoed@example.com",
+      "userName": "la3zyd3uck408",
       "password": "jokers",
-      "pagesize": "10",
+      "pageSize": "10",
       "timeout": 30
     },
     {
-      "userid": "06232",
+      "userId": "02332",
       "name": "Full Name",
-      "email": "romain.hoogmoed@example.com",
-      "username": "lazyduck408",
+      "emailId": "romain.hoogmoed@example.com",
+      "userName": "lazyd3uc3k408",
       "password": "jokers",
-      "pagesize": "10",
+      "pageSize": "10",
       "timeout": 30
     }
-  ]
-  
+  ]  
 }
