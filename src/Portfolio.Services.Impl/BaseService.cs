@@ -6,64 +6,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Portfolio.DAL;
+using Portfolio.Models;
 
 namespace Portfolio.Services.Impl
 {
-    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
+    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : IEntity
     {        
-        private IMongoCollection<TEntity> _mongoCollection;
+        private IRepository<TEntity> _repository;
 
-        protected BaseService(IMongoDbManager dbManager)
+        protected BaseService(IRepository<TEntity> repository)
         {
-           dbManager.Connect("mongodb://localhost:27017");          
-           dbManager.SetDatabase("music-storedb");            
-        }
-
-        protected void SetCollection(IMongoCollection<TEntity> mongoCollection){
-             _mongoCollection = mongoCollection;
+            _repository = repository;
         }
 
         public void Create(TEntity entity)
         {
-            _mongoCollection.InsertOneAsync(entity);
+            _repository.Add(entity);
         }
 
-        public bool Delete(ObjectId id)
+        public void Create(List<TEntity> entityies)
         {
-            var query = Builders<TEntity>.Filter.Eq("_id", id);
-            var result = _mongoCollection.DeleteOneAsync(query);
-
-            return Get(id) == null;
+            _repository.Add(entityies);
         }
 
+        public void Delete(ObjectId id)
+        {
+            _repository.Delete(id);
+        }
+       
         public TEntity Get(ObjectId id)
         {
-            var query = Builders<TEntity>.Filter.Eq("_id", id);
-            var speaker = _mongoCollection.Find(query).ToListAsync();
-
-            return speaker.Result.FirstOrDefault();
+            return _repository.Get(id);
         }
 
-        public List<TEntity> GetAll()
-        {  
-            var entities = _mongoCollection.AsQueryable<TEntity>().ToList<TEntity>();                        
-            return entities;
-        }
-
-        public void Update(ObjectId id, TEntity entity)
+        public List<TEntity> Get()
         {
-            var query = Builders<TEntity>.Filter.Eq("_id", id);
-            var update = _mongoCollection.ReplaceOneAsync(query, entity);
-        }
-
-        public void Dispose()
-        {
-
+            return _repository.Get();
         }
 
         public TEntity GetBy(Expression<Func<TEntity, bool>> criteria)
         {
             throw new NotImplementedException();
         }
+
+        public void Update(ObjectId id, TEntity entity)
+        {
+            throw new NotImplementedException();
+        }       
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

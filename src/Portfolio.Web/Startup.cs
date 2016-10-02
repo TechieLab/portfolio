@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.StaticFiles;
-using System.IO;
+using Porfolio.Web.Services;
 using Portfolio.Core;
 using Portfolio.Services;
-using Portfolio.Services.Impl;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Portfolio.Web.Helpers;
-using AutoMapper;
-using Store.Web.Helpers;
+using DomainModels = Portfolio.Models;
 
 namespace Portfolio.Web
 {
     public class Startup
     {
-        private IMongoDbManager _manager;
+        private IMongoDbManager _manager;        
         public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
        
         public Startup(IHostingEnvironment env)
@@ -44,7 +36,22 @@ namespace Portfolio.Web
 
             services.AddMvc();
 
-            AutoMappingConfiguration.Configure();            
+            AutoMappingConfiguration.Configure();
+
+            ServiceCollectionExtensions.RegisterServices(services);
+
+            //Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
+            //or
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ViewModels.User, DomainModels.User>().ReverseMap());
+
+            //var config = AutoMapperConfiguration.Configure();
+
+            config.AssertConfigurationIsValid();
+
+            //Mapper.Initialize(config =>
+            //{
+            //    config.CreateMap<ViewModels.User, DomainModels.User>().ReverseMap();
+            //});
 
             //services.Configure<MvcOptions>(options =>
             //                         options
@@ -55,7 +62,9 @@ namespace Portfolio.Web
         }     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMongoDbManager manager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, IMongoDbManager manager, IUserService userService,
+            IProfileService profileService)
         {
             _manager = manager;
             
@@ -71,10 +80,7 @@ namespace Portfolio.Web
             {
                 app.UseDeveloperExceptionPage();
                 
-                app.UseBrowserLink();
-
-                _manager.Connect("mongodb://localhost:27017");
-                _manager.SetDatabase("music-storedb");
+                app.UseBrowserLink();              
             }
             else
             {
@@ -97,7 +103,9 @@ namespace Portfolio.Web
             });
 
             app.UseMvcWithDefaultRoute();
-            app.UseMvc();         
+            app.UseMvc();
+
+            new DatabaseInitService(userService, profileService, null).ValidateData();
         }
     }
 }

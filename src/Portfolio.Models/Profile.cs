@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Models
 {
-    public class Profile
+    public class Profile: Entity, IEntity
     {
     }
 }

@@ -27,25 +27,24 @@ namespace Store.Web.Controllers
         }
 
         // GET: api/values
-        [HttpGet("{name}")]
-        public User Get(string name)
+        public List<User> Get()
         {
             _logger.LogDebug("Listing all items");
 
-            var user = _userService.GetBy(l => l.Name == name);
+            var user = _userService.Get();
 
-           var result = Mapper.Map<DomainModel.User, User>(user);
+            var result = Mapper.Map<List<DomainModel.User>, List<User>>(user);
 
             return result;
         }
 
         // GET: api/values
-        [HttpGet("{id}")]
-        public User Get(ObjectId id)
+        [HttpGet("{name}")]
+        public User Get(string name)
         {
-            _logger.LogDebug("Listing all items");
+            _logger.LogDebug("Listing item by name -" + name);
 
-            var user = _userService.Get(id);
+            var user = _userService.GetBy(l => l.LogonName == name);
 
             var result = Mapper.Map<DomainModel.User, User>(user);
 

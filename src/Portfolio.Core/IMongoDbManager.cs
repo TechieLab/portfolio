@@ -9,12 +9,6 @@ namespace Portfolio.Core
 {
    public interface IMongoDbManager
     {
-        IMongoDatabase GetDatabase(string dbName);
-
-        IMongoCollection<TEntity> GetCollection<TEntity>(string collectionName);
-
-        void SetDatabase(string dbName);
-
-        void Connect(string dbUrl);
+        
     }
 }

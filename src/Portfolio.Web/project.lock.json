@@ -1731,6 +1731,25 @@
           "dnx451/Portfolio.DAL.dll": {}
         }
       },
+      "PortFolio.DAL.Impl/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "1.0.0",
+          "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+          "Microsoft.Extensions.Configuration.Json": "1.0.0",
+          "MongoDB.Driver": "2.3.0",
+          "PortFolio.DAL": "1.0.0",
+          "Portfolio.Core": "1.0.0",
+          "Portfolio.Models": "1.0.0"
+        },
+        "compile": {
+          "dnx451/Portfolio.DAL.Impl.dll": {}
+        },
+        "runtime": {
+          "dnx451/Portfolio.DAL.Impl.dll": {}
+        }
+      },
       "Portfolio.Models/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -1764,6 +1783,7 @@
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
+          "PortFolio.DAL": "1.0.0",
           "Portfolio.Core": "1.0.0",
           "Portfolio.Models": "1.0.0",
           "Portfolio.Services": "1.0.0"
@@ -1778,6 +1798,9 @@
       "Portfolio.ViewModels/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
+        "dependencies": {
+          "MongoDB.Driver": "2.3.0"
+        },
         "compile": {
           "dnx451/Portfolio.ViewModels.dll": {}
         },
@@ -4794,6 +4817,11 @@
       "path": "../PortFolio.DAL/project.json",
       "msbuildProject": "../PortFolio.DAL/Portfolio.DAL.xproj"
     },
+    "PortFolio.DAL.Impl/1.0.0": {
+      "type": "project",
+      "path": "../PortFolio.DAL.Impl/project.json",
+      "msbuildProject": "../PortFolio.DAL.Impl/Portfolio.DAL.Impl.xproj"
+    },
     "Portfolio.Models/1.0.0": {
       "type": "project",
       "path": "../Portfolio.Models/project.json",
@@ -4833,6 +4861,8 @@
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
       "MongoDB.Driver >= 2.3.0",
+      "PortFolio.DAL >= 1.0.0",
+      "PortFolio.DAL.Impl >= 1.0.0",
       "Portfolio.Core >= 1.0.0",
       "Portfolio.Models >= 1.0.0",
       "Portfolio.Services >= 1.0.0",

@@ -743,10 +743,10 @@
           "Portfolio.Models": "1.0.0"
         },
         "compile": {
-          "dnx451/PortFolio.DAL.dll": {}
+          "dnx451/Portfolio.DAL.dll": {}
         },
         "runtime": {
-          "dnx451/PortFolio.DAL.dll": {}
+          "dnx451/Portfolio.DAL.dll": {}
         }
       },
       "Portfolio.Models/1.0.0": {
@@ -2551,6 +2551,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "PortFolio.DAL >= 1.0.0",
       "Portfolio.Core >= 1.0.0",
       "Portfolio.Models >= 1.0.0",
       "Portfolio.Services >= 1.0.0"

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Services
 {
-    public interface IProfileService : IBaseService<User>
+    public interface IProfileService : IBaseService<Profile>
     {
 
     }

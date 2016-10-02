@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Models.Blog
 {
-    public class Porfolio
+    public class Porfolio : Entity, IEntity
     {
     }
 }
