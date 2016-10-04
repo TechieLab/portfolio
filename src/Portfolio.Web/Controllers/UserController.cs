@@ -38,13 +38,16 @@ namespace Store.Web.Controllers
             return result;
         }
 
-        // GET: api/values
-        [HttpGet("{name}")]
-        public User Get(string name)
+        // GET: api/users/username
+        [HttpGet("{userName}")]
+        public User Get(string userName)
         {
-            _logger.LogDebug("Listing item by name -" + name);
+            if (userName == null)
+                throw new ArgumentNullException("userName is empty");
 
-            var user = _userService.GetBy(l => l.UserName == name);
+            _logger.LogDebug("Listing item by name -" + userName);
+
+            var user = _userService.GetBy(l => l.UserName == userName).FirstOrDefault();
 
             var result = Mapper.Map<DomainModel.User, User>(user);
 

@@ -45,9 +45,9 @@ namespace Portfolio.Services.Impl
             return _repository.Get();
         }
 
-        public TEntity GetBy(Expression<Func<TEntity, bool>> criteria)
+        public List<TEntity> GetBy(Expression<Func<TEntity, bool>> criteria)
         {
-            throw new NotImplementedException();
+            return _repository.GetBy(criteria);
         }
 
         public void Update(ObjectId id, TEntity entity)

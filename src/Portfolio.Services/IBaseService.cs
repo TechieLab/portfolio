@@ -14,7 +14,7 @@ namespace Portfolio.Services
 
         TEntity Get(ObjectId id);
 
-        TEntity GetBy(Expression<Func<TEntity, bool>> criteria);        
+        List<TEntity> GetBy(Expression<Func<TEntity, bool>> criteria);        
 
         void Create(TEntity entity);
 

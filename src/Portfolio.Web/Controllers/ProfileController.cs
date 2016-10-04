@@ -34,7 +34,7 @@ namespace Store.Web.Controllers
         {
             _logger.LogDebug("Get profile by id - " + id);
 
-            var profile = _profileService.GetBy(l => l.Id == id);
+            var profile = _profileService.GetBy(l => l.Id == id).FirstOrDefault();
 
            var result = Mapper.Map<DomainModels.Profile, ViewModels.Profile>(profile);
 
