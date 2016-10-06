@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
-
-
-import {HomeComponent} from './home/home.component';
-import {ProfileComponent} from './profile/profile.component';
-import {BlogComponent} from './blog/blog.component';
-import {MyWorkComponent} from './my-work/my-work.component.ts';
-import {MyWorkDetailComponent} from './my-work-detail/my-work-detail.component';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import {HomeComponent} from './components/home/home.component';
+import {ProfileComponent} from './components/profile/profile.component';
+import {BlogComponent} from './components/blog/blog.component';
+import {MyWorkComponent} from './components/my-work/my-work.component.ts';
+import {MyWorkDetailComponent} from './components/my-work-detail/my-work-detail.component';
+
 
 const appRoutes: Routes = [  
    {path:'',component:HomeComponent},

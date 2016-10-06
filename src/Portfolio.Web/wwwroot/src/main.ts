@@ -7,17 +7,18 @@ import { NgModule }      from '@angular/core';
 import {HttpModule} from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {LayoutComponent} from './app/layout/layout.component';
-import {IsometricGrid} from './app/my-work/my-work.directive';
-import {HeaderComponent} from './app/header/header.component';
-import {HomeComponent } from './app/home/home.component';
-import { ProfileComponent} from './app/profile/profile.component';
-import {ProfileWidgetComponent} from './app/profile-widget/profileWidget.component';
-import {ProfileAboutWidgetComponent} from './app/profile-about-widget/profileAboutWidget.component';
-import { FeedComponent} from './app/feed/feed.component';
-import {BlogComponent } from './app/blog/blog.component';
-import { MyWorkComponent} from './app/my-work/my-work.component';
-import {MyWorkDetailComponent} from './app/my-work-detail/my-work-detail.component';
+import {LayoutComponent} from './app/components/layout/layout.component';
+import {IsometricGrid} from './app/components/my-work/my-work.directive';
+import {HeaderComponent} from './app/components/header/header.component';
+import {HomeComponent } from './app/components/home/home.component';
+import { ProfileComponent} from './app/components/profile/profile.component';
+import {ProfileWidgetComponent} from './app/components/profile-widget/profileWidget.component';
+import {ProfileAboutWidgetComponent} from './app/components/profile-about-widget/profileAboutWidget.component';
+import { FeedComponent} from './app/components/feed/feed.component';
+import {BlogComponent } from './app/components/blog/blog.component';
+import { MyWorkComponent} from './app/components/my-work/my-work.component';
+import {MyWorkDetailComponent} from './app/components/my-work-detail/my-work-detail.component';
+
 import { routing,
   appRoutingProviders }  from './app/app.routes';
 
