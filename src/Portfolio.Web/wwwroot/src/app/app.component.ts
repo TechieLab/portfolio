@@ -1,39 +1,45 @@
+import '../rxjs-operators';
+
 import {Component, OnInit, ViewChild, OnDestroy, ViewContainerRef} from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/map';
 
 import {LayoutComponent} from './components/layout/layout.component';
 import {HeaderComponent} from './components/header/header.component';
 
 import {UserService} from './services/UserService';
+import {IUser} from './models/user';
 
 @Component({
-  selector: 'my-app',
-  template: require('./app.html'),
-  entryComponents: [LayoutComponent, HeaderComponent],
-  providers: [UserService]
+    selector: 'my-app',
+    template: require('./app.html'),
+    entryComponents: [LayoutComponent, HeaderComponent],
+    providers: [UserService]
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  code: Subscription;
+    code: Subscription;
+    userResult: IUser;
+    errorMessage: any;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.code = new Subscription();
-  }
+    constructor(private activatedRoute: ActivatedRoute, private userService: UserService) {
+        this.code = new Subscription();
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this.code = this.activatedRoute.params.subscribe(params => {
-      let code_id = params['code'];     
-      
+        this.code = this.activatedRoute.params.subscribe(params => {
+            let username = params['username'];
 
-    });
-  }
+            if (username) {
+                this.userService.getUserByName(username).subscribe(res => this.userResult = res, error => this.errorMessage = <any>error);
+            }     
+        });
+    }
 
-  ngOnDestroy() {
-    this.code.unsubscribe();
-  }
+    ngOnDestroy() {
+        this.code.unsubscribe();
+    }
 }

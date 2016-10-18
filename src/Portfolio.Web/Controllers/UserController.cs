@@ -9,10 +9,12 @@ using Portfolio.ViewModels;
 using MongoDB.Bson;
 using DomainModel = Portfolio.Models;
 using AutoMapper;
+using Portfolio.Core.Security;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Store.Web.Controllers
+namespace Protfolio.Web.Controllers
 {
     [Route("api/users")]
     public class UserController : Controller
@@ -48,6 +50,20 @@ namespace Store.Web.Controllers
             _logger.LogDebug("Listing item by name -" + userName);
 
             var user = _userService.GetBy(l => l.UserName == userName).FirstOrDefault();
+
+            if (user != null) {
+               
+                var claims = new List<Claim> {
+                    new Claim(Portfolio.Core.Security.ClaimTypes.UserId, user.Id.ToString(), ClaimValueTypes.String),
+                    new Claim(Portfolio.Core.Security.ClaimTypes.UserFullName, user.Name, ClaimValueTypes.String),
+                    new Claim(Portfolio.Core.Security.ClaimTypes.UserEmail, user.EmailId, ClaimValueTypes.String)
+                };
+
+                var userIdentity = new ClaimsIdentity(claims, "Passport");
+
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
+            }
+            
 
             var result = Mapper.Map<DomainModel.User, User>(user);
 

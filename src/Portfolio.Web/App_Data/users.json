@@ -2,18 +2,18 @@
   "data": [
     {
       "userId":  "30232",
-      "name": "Full Name",
-      "emailId": "romain.hoogmoed@example.com",
-      "userName": "laz3yduck408",
+      "name": "Ramesh sharma",
+      "emailId": "ramesh.sharma@example.com",
+      "userName": "ramesh.sharma",
       "password": "jokers",
       "pageSize": "10",
       "timeout": 30
     },
     {
       "userId": "03232",
-      "name": "Full Name",
-      "emailId": "romain.hoogmoed@example.com",
-      "userName": "lazy3duck408",
+      "name": "Sourab sen",
+      "emailId": "sourab.sen@example.com",
+      "userName": "ssen",
       "password": "jokers",
       "pageSize": "10",
       "timeout": 30

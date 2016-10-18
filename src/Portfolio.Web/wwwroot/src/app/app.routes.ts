@@ -9,13 +9,12 @@ import {MyWorkComponent} from './components/my-work/my-work.component.ts';
 import {MyWorkDetailComponent} from './components/my-work-detail/my-work-detail.component';
 
 
-const appRoutes: Routes = [  
-   {path:'',component:HomeComponent},
-   {path:'profile',component:ProfileComponent},
+const appRoutes: Routes = [
+   { path: '', redirectTo: 'profile', pathMatch: 'prefix' },
+   {path:'profile/:username',component:ProfileComponent},
    {path:'blog',component:BlogComponent},
    {path:'work',component:MyWorkComponent},
-   {path:'work/:id',component:MyWorkDetailComponent},
-   {path:'profile/:code=',component:HomeComponent},
+   {path:'work/:id',component:MyWorkDetailComponent}
 ];
 
 export const appRoutingProviders: any[] = [

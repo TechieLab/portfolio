@@ -1,5 +1,11 @@
 import {Component} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import {ProfileService} from './profile.service';
+import {IUser} from '../../models/user';
+import {UserService} from '../../services/UserService';
 
 @Component({
     selector:'profile',
@@ -10,9 +16,22 @@ import {ProfileService} from './profile.service';
 export class ProfileComponent{
      postItem:Array<Object>;
      errorMessage: boolean = false;
-     
-    constructor(private profile_service:ProfileService){
+     code: Subscription;
+     userResult: IUser;    
+
+     constructor(private profile_service: ProfileService, private activatedRoute: ActivatedRoute, private userService: UserService){
         this.getProfile();
+     }
+
+    ngOnInit() {
+
+        this.code = this.activatedRoute.params.subscribe(params => {
+            let username = params['username'];
+
+            if (username) {
+                this.userService.getUserByName(username).subscribe(res => this.userResult = res, error => this.errorMessage = <any>error);
+            }
+        });
     }
 
     getProfile(){
