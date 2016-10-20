@@ -11,6 +11,6 @@ namespace Portfolio.Models.Blog
     {
         public string Title { get; set; }
         public string Content { get; set; }
-        public User PostedBy { get; set; }
+        public Blog PostedBy { get; set; }
     }
 }

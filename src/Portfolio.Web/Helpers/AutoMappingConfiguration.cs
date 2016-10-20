@@ -11,12 +11,12 @@ namespace Portfolio.Web.Helpers
     public static class AutoMappingConfiguration
     {
         public static void Configure()
-        {          
+        {
 
-            Mapper.Initialize(config =>
+            Mapper.Initialize((Action<IMapperConfigurationExpression>)(config =>
             {
-                config.CreateMap<ViewModels.User, DomainModel.User>().ReverseMap();
-            });
+                config.CreateMap<ViewModels.User, DomainModel.Blog>().ReverseMap();
+            }));
         }
     }
 }

@@ -22,7 +22,12 @@
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <ItemGroup>
-    
+    <DnxInvisibleTypeScriptCompile Include="wwwroot\assets\styles\bootstrap.ts" />
+    <DnxInvisibleTypeScriptCompile Include="wwwroot\src\app\profile-about-widget\blog.service.ts" />
+    <DnxInvisibleTypeScriptCompile Include="wwwroot\src\app\profile-about-widget\file.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <DnxInvisibleContent Include="wwwroot\assets\styles\component - Copy.css" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

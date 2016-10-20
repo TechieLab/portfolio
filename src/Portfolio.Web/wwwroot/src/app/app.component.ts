@@ -1,45 +1,42 @@
-import '../rxjs-operators';
+import {ViewChild, ViewChildren, Component, OnInit, OnDestroy, ViewContainerRef  } from '@angular/core';
 
-import {Component, OnInit, ViewChild, OnDestroy, ViewContainerRef} from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
 
-import {LayoutComponent} from './components/layout/layout.component';
-import {HeaderComponent} from './components/header/header.component';
-
-import {UserService} from './services/UserService';
-import {IUser} from './models/user';
+import {LayoutComponent} from './layout/layout.component';
+import {HeaderComponent} from './header/header.component';
 
 @Component({
-    selector: 'my-app',
-    template: require('./app.html'),
-    entryComponents: [LayoutComponent, HeaderComponent],
-    providers: [UserService]
+  selector: 'my-app',
+  template: require('./app.html'),
+  entryComponents: [LayoutComponent, HeaderComponent]
 })
 
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy  {
     code: Subscription;
-    userResult: IUser;
-    errorMessage: any;
+    isGridLoaded: boolean = false;
+    
 
-    constructor(private activatedRoute: ActivatedRoute, private userService: UserService) {
+    constructor(private activatedRoute: ActivatedRoute) {
         this.code = new Subscription();
-    }
+        
+  }
 
-    ngOnInit() {
+  ngOnInit() {
+      var self = this;
+       this.code = this.activatedRoute.params.subscribe(params => {
+        let code_id = params['code'];
+        self.isGridLoaded = true;
+        console.log(code_id);
+       
 
-        this.code = this.activatedRoute.params.subscribe(params => {
-            let username = params['username'];
+    });
+  }
 
-            if (username) {
-                this.userService.getUserByName(username).subscribe(res => this.userResult = res, error => this.errorMessage = <any>error);
-            }     
-        });
-    }
-
-    ngOnDestroy() {
-        this.code.unsubscribe();
-    }
+  ngOnDestroy() {
+    this.code.unsubscribe();
+  }
 }

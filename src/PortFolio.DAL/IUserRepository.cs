@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.DAL
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<Blog>
     {
 
     }

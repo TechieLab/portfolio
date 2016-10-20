@@ -34,7 +34,7 @@ namespace Porfolio.Web.Services
             var users = _userService.Get();
 
             if (!users.Any()) {
-                var result = Mapper.Map<List<ViewModels.User>, List<DomainModels.User>>(GetJsonData());
+                var result = Mapper.Map<List<ViewModels.User>, List<DomainModels.Blog>>(GetJsonData());
 
                 _userService.Create(result);
             }           
