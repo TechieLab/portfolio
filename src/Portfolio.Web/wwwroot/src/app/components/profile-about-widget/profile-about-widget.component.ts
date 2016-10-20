@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'profile-about-widget',
-  template: require('./profileAboutWidget.html')
+  template: require('./profile-about-widget.html')
  
 })
 
-export class ProfileAboutWidgetComponent{}
+export class ProfileAboutWidgetComponent{ }

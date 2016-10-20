@@ -5,30 +5,32 @@
 
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing'; 
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {ProfileWidgetComponent} from './profileWidget.component';
+import {ProfileAboutWidgetComponent} from  './profile-about-widget.component';
 
-describe('Profile Widget component:', () => {
-    let component: ProfileWidgetComponent;
-    let fixture: ComponentFixture<ProfileWidgetComponent>;           
+describe('Profile About Widget Component:', () => {
+    let component: ProfileAboutWidgetComponent;
+    let fixture: ComponentFixture<ProfileAboutWidgetComponent>;           
 
     beforeEach(() => {
         // refine the test module by declaring the test component
         TestBed.configureTestingModule({
-            declarations: [ ProfileWidgetComponent ],
+            declarations: [ ProfileAboutWidgetComponent ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         });
 
         TestBed.compileComponents();
 
             // create component and test fixture
-        fixture = TestBed.createComponent(ProfileWidgetComponent);
+        fixture = TestBed.createComponent(ProfileAboutWidgetComponent);
 
         // get test component from the fixture
         component = fixture.componentInstance;
+
+
     });
     
     it("should initialize proxyService correctly", () =>
     {
-        
+       
     });    
 });

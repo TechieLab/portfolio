@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector:'profile-widget',
-    template:require('./profileWidget.html')
+    template:require('./profile-widget.html')
 })
 
 export class ProfileWidgetComponent{}

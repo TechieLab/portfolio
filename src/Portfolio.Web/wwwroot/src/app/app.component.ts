@@ -7,15 +7,14 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import {LayoutComponent} from './components/layout/layout.component';
-import {HeaderComponent} from './components/header/header.component';
 
-import {UserService} from './services/UserService';
+import {UserService} from './services/userService';
 import {IUser} from './models/user';
 
 @Component({
     selector: 'my-app',
     template: require('./app.html'),
-    entryComponents: [LayoutComponent, HeaderComponent],
+    entryComponents: [LayoutComponent],   
     providers: [UserService]
 })
 
