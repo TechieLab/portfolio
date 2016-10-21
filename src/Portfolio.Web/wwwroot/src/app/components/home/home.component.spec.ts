@@ -7,8 +7,8 @@ import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angul
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {HomeComponent} from  './home.component';
 import {ProfileComponent} from '../profile/profile.component';
-import {ProfileWidgetComponent} from '../profile-widget/profileWidget.component';
-import {ProfileAboutWidgetComponent} from '../profile-about-widget/profileAboutWidget.component';
+import {ProfileWidgetComponent} from '../profile-widget/profile-widget.component';
+import {ProfileAboutWidgetComponent} from '../profile-about-widget/profile-about-widget.component';
 import {FeedComponent} from '../feed/feed.component';
 
 describe('Home index component:', () => {

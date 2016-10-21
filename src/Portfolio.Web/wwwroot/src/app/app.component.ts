@@ -6,13 +6,18 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-import {LayoutComponent} from './layout/layout.component';
-import {HeaderComponent} from './header/header.component';
+import {HeaderComponent} from './components/header/header.component';
+import {LayoutComponent} from './components/layout/layout.component';
+
+import {UserService} from './services/userService';
+import {IUser} from './models/user';
 
 @Component({
-  selector: 'my-app',
-  template: require('./app.html'),
-  entryComponents: [LayoutComponent, HeaderComponent]
+    selector: 'my-app',
+    template: require('./app.html'),
+    entryComponents: [LayoutComponent],   
+    providers: [UserService]
+
 })
 
 export class AppComponent implements OnInit, OnDestroy  {
