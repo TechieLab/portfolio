@@ -6,10 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-<<<<<<< HEAD
-import {HeaderComponent} from './components/header/header.component';
-=======
->>>>>>> 7b742ba3bd8e8d5441bafe92bccdfba204a83c66
 import {LayoutComponent} from './components/layout/layout.component';
 
 import {UserService} from './services/userService';

@@ -12,6 +12,7 @@ import {MyWorkDetailComponent} from './components/my-work-detail/my-work-detail.
 
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
+    { path: '', component: DashboardComponent },
     { path: 'profile/:username', component: ProfileComponent },
     { path: 'blog', component: BlogComponent },
     { path: 'work', component: MyWorkComponent },
