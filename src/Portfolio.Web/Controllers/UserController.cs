@@ -15,7 +15,6 @@ using Store.Web.Helpers;
 
 namespace Portfolio.Web.Controllers
 {
-    [Route("api/user")]
     public class UserController : BaseController<DomainModels.User, ViewModels.User>
     {
         private readonly IUserService _userService;        
@@ -32,7 +31,7 @@ namespace Portfolio.Web.Controllers
         }
         
         // GET: api/users/username
-        [HttpGet("getBy/{userName}")]
+        [HttpGet("api/users/getBy/{userName}")]
         public User GetBy(string userName)
         {
             if (userName == null)

@@ -7,38 +7,25 @@ using Microsoft.Extensions.Logging;
 using Portfolio.Services;
 using Portfolio.ViewModels;
 using MongoDB.Bson;
-using DomainModel = Portfolio.Models;
+using DomainModels = Portfolio.Models;
+using ViewModels = Portfolio.ViewModels;
 using AutoMapper;
-using Portfolio.Models.Blog;
-
+using Portfolio.Services.Impl;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Store.Web.Controllers
+namespace Portfolio.Web.Controllers
 {
-    [Route("api/blogs")]
-    public class BlogController : Controller
+    public class BlogController : BaseController<DomainModels.Blog.Blog, ViewModels.Blog.Blog>
     {
 
         private readonly IBlogService _blogService;
         private readonly ILogger<BlogController> _logger;
 
-        public BlogController(IBlogService service, ILogger<BlogController> logger)
+        public BlogController(IBlogService service, ILogger<BlogController> logger , ILogger<IBlogService> loggerService) : base(service, loggerService)
         {
             _blogService = service;
             _logger = logger;
-        }
-
-        // GET: api/values
-        public List<Blog> Get()
-        {
-            _logger.LogDebug("Listing all items");
-
-            var blog = IBlogService.Get();
-
-            var result = Mapper.Map<List<DomainModel.Blog>, List<User>>(blog);
-
-            return result;
-        }
+        }      
     }
 }

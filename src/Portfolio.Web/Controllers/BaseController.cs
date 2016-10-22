@@ -42,7 +42,7 @@ namespace Portfolio.Web.Controllers
         public TEntityOut Get(ObjectId id)
         {
             if (id == null)
-                throw new ArgumentNullException("Value is null - Id");
+                throw new ArgumentNullException("Id value cannot be null");
 
             var result = _baseService.GetBy(l => l.Id == id).FirstOrDefault();
 

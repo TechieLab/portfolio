@@ -16,7 +16,6 @@ using AutoMapper;
 
 namespace Portfolio.Web.Controllers
 {
-    [Route("api/profile")]
     public class ProfileController : BaseController<DomainModels.Profile ,ViewModels.Profile>
     {
         private readonly IProfileService _profileService;        

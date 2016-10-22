@@ -15,7 +15,7 @@ namespace Portfolio.Web.Helpers
 
             Mapper.Initialize((Action<IMapperConfigurationExpression>)(config =>
             {
-                config.CreateMap<ViewModels.User, DomainModel.Blog>().ReverseMap();
+                config.CreateMap<ViewModels.User, DomainModel.User>().ReverseMap();
             }));
         }
     }

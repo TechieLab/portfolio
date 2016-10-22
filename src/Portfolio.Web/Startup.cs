@@ -42,7 +42,7 @@ namespace Portfolio.Web
 
             //Mapper.Initialize(cfg => cfg.CreateMap<Order, OrderDto>());
             //or
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ViewModels.User, DomainModels.Blog>().ReverseMap());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ViewModels.User, DomainModels.User>().ReverseMap());
 
             //var config = AutoMapperConfiguration.Configure();
 

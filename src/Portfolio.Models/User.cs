@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Portfolio.Models
 {
-    public class Blog : Entity, IEntity
+    public class User : Entity, IEntity
     {
         [BsonElement("userId")]
         public string UserId { get; set; }
