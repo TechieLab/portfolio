@@ -90,8 +90,7 @@ namespace Portfolio.Web
 
             app.UseDefaultFiles();
             app.UseStaticFiles();           
-
-            app.Use(async (context, next) =>
+                        app.Use(async (context, next) =>
             {
                 await next();
 

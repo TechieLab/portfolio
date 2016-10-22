@@ -14,31 +14,19 @@ using AutoMapper;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Store.Web.Controllers
+namespace Portfolio.Web.Controllers
 {
     [Route("api/profile")]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController<DomainModels.Profile ,ViewModels.Profile>
     {
         private readonly IProfileService _profileService;        
         private readonly ILogger<ProfileController> _logger;
 
-        public ProfileController(IProfileService service, ILogger<ProfileController> logger)
+        public ProfileController(IProfileService profileService, ILogger<IProfileService> serviceLogger, ILogger<ProfileController> logger)
+            : base(profileService, serviceLogger)
         {
-            _profileService = service;            
+            _profileService = profileService;            
             _logger = logger;
-        }
-
-        // GET: api/values
-        [HttpGet("{id}")]
-        public ViewModels.Profile Get(ObjectId id)
-        {
-            _logger.LogDebug("Get profile by id - " + id);
-
-            var profile = _profileService.GetBy(l => l.Id == id).FirstOrDefault();
-
-           var result = Mapper.Map<DomainModels.Profile, ViewModels.Profile>(profile);
-
-            return result;
-        }        
+        }               
     }
 }

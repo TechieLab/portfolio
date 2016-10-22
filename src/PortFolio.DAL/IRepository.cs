@@ -22,7 +22,7 @@ namespace Portfolio.DAL
     /// IRepository definition.
     /// </summary>
     /// <typeparam name="T">The type contained in the repository.</typeparam> 
-    public interface IRepository<T> : IQueryable<T>
+    public interface IRepository<T> : IQueryable<T>, IDisposable
         where T : IEntity
     {
         /// <summary>

@@ -6,66 +6,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Portfolio.Services;
 using Portfolio.ViewModels;
-using MongoDB.Bson;
 using DomainModel = Portfolio.Models;
 using AutoMapper;
-using Portfolio.Core.Security;
-using System.Security.Claims;
+using DomainModels = Portfolio.Models;
+using Store.Web.Helpers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Protfolio.Web.Controllers
+namespace Portfolio.Web.Controllers
 {
-    [Route("api/users")]
-    public class UserController : Controller
+    [Route("api/user")]
+    public class UserController : BaseController<DomainModels.User, ViewModels.User>
     {
         private readonly IUserService _userService;        
         private readonly ILogger<UserController> _logger;
+        private readonly ILogger<ClaimsManager> _claimsManagerLogger;
 
-        public UserController(IUserService service, ILogger<UserController> logger)
+        public UserController(IUserService userService, ILogger<IUserService> serviceLogger, ILogger<UserController> logger, 
+            ILogger<ClaimsManager> claimsManagerLogger) 
+            : base(userService, serviceLogger)
         {
-            _userService = service;            
+            _userService = userService;
+            _claimsManagerLogger = claimsManagerLogger;
             _logger = logger;
         }
-
-        // GET: api/values
-        public List<User> Get()
-        {
-            _logger.LogDebug("Listing all items");
-
-            var user = _userService.Get();
-
-            var result = Mapper.Map<List<DomainModel.User>, List<User>>(user);
-
-            return result;
-        }
-
+        
         // GET: api/users/username
-        [HttpGet("{userName}")]
-        public User Get(string userName)
+        [HttpGet("getBy/{userName}")]
+        public User GetBy(string userName)
         {
             if (userName == null)
                 throw new ArgumentNullException("userName is empty");
 
             _logger.LogDebug("Listing item by name -" + userName);
 
-            var user = _userService.GetBy(l => l.UserName == userName).FirstOrDefault();
-
-            if (user != null) {
-               
-                var claims = new List<Claim> {
-                    new Claim(Portfolio.Core.Security.ClaimTypes.UserId, user.Id.ToString(), ClaimValueTypes.String),
-                    new Claim(Portfolio.Core.Security.ClaimTypes.UserFullName, user.Name, ClaimValueTypes.String),
-                    new Claim(Portfolio.Core.Security.ClaimTypes.UserEmail, user.EmailId, ClaimValueTypes.String)
-                };
-
-                var userIdentity = new ClaimsIdentity(claims, "Passport");
-
-                var userPrincipal = new ClaimsPrincipal(userIdentity);
-            }
-            
+            var user = _userService.GetBy(l => l.UserName == userName).FirstOrDefault();           
 
             var result = Mapper.Map<DomainModel.User, User>(user);
+
+            new ClaimsManager(_claimsManagerLogger).SetUserContext();
 
             return result;
         }

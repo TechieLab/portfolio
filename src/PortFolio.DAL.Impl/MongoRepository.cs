@@ -252,6 +252,11 @@ namespace Portfolio.DAL.Impl
             return collection.AsQueryable<T>().GetEnumerator();
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQueryable is executed.
         /// </summary>
