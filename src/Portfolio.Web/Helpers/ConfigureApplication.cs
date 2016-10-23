@@ -3,14 +3,21 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.Extensions.Configuration;
+using System.Reflection.Metadata;
 
 namespace Store.Web.Helpers
 {
-    public static class ConfigureApplication
+    public class ConfigureApplication
     {
-        public static Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
 
-        public static void Register(IApplicationBuilder app, IHostingEnvironment env)
+        public ConfigureApplication(IConfiguration _configuration)
+        {
+            Configuration = _configuration;
+        }
+
+        public void Register(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -24,7 +31,7 @@ namespace Store.Web.Helpers
             }
 
             // Used to register OAuth for linkedIn.
-            ConfigureOAuth.Register(app, env);
+            new ConfigureOAuth(Configuration).Register(app, env);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -37,10 +44,10 @@ namespace Store.Web.Helpers
                     context.Request.Path = "/index.html"; // Put your Angular root page here 
                     await next();
                 }
-            });
+            });          
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
+            {                
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/login"),

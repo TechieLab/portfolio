@@ -1,23 +1,33 @@
 ﻿import {Component, ElementRef} from '@angular/core';
-import {AuthenticationService, User} from './accountService'
+import {AccountService} from './accountService'
+import {Router} from '@angular/router';
+
+import {LoginModel} from './account.model';
+import {IUser} from '../../models/user';
 
 @Component({
     selector: 'login-form',
-    providers: [AuthenticationService],
-    templateUrl: require('./login.html')
+    providers: [AccountService],
+    template: require('./login.html')
 })
 
 export class LoginComponent {
 
-    public user = new User('', '');
+    public loginModel: LoginModel;
+    public currentUser: IUser;
+
     public errorMsg = '';
 
-    constructor(
-        private _service: AuthenticationService) { }
+    constructor(private router: Router, private _service: AccountService) { }
 
     login() {
-        if (!this._service.login(this.user)) {
-            this.errorMsg = 'Failed to login';
-        }
+        this._service.authenticate(this.loginModel).subscribe((response) => {
+            if (response.success) {
+                this.currentUser = response.content;
+                this.router.navigate(['home']);
+            } else {
+                this.errorMsg = response.message;
+            }            
+        });        
     }
 }

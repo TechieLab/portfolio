@@ -12,7 +12,6 @@
       </a>
     </div>
     <div class="f collapse" id="navbar-collapse-main">
-
         <ul class="nav navbar-nav ss">
           <li class="active">
             <a routerLink="/">Home</a>
@@ -30,7 +29,7 @@
           </li>  
         </ul>
 
-        <ul class="nav navbar-nav og ale ss">
+        <ul class="nav navbar-nav og ale ss" *ngIf="isUserAuthenticated">
           <li>
             <a class="g" href="notifications/index.html">
               <span class="h ws"></span>
@@ -41,6 +40,9 @@
               <img class="cu" src="/./assets/images/avatar-dhg.png">
             </button>
           </li>
+        </ul>
+        <ul class="nav navbar-nav" *ngIf="!isUserAuthenticated">         
+          <li><a routerLink="/login">Login</a></li>
         </ul>
 
         <div class="ow og i">
@@ -57,12 +59,7 @@
           <li><a href="docs/index.html">Docs</a></li>
           <li><a href="#" data-action="growl">Growl</a></li>
           <li><a href="login/index.html">Logout</a></li>
-        </ul>
-
-        <ul class="nav navbar-nav hidden">
-          <li><a href="#" data-action="growl">Growl</a></li>
-          <li><a href="login/index.html">Logout</a></li>
-        </ul>
+        </ul>        
       </div>
   </div>
 </nav>

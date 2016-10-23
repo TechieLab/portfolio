@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 
 @Component({
     selector:'app-header',
@@ -6,5 +6,13 @@ import {Component} from '@angular/core';
 })
 
 export class HeaderComponent{
-    
+    public isUserAuthenticated : boolean;
+
+    constructor(){
+        this.isUserAuthenticated = false;
+    }
+
+    checkAuthenticatedUser(){
+
+    }
 }

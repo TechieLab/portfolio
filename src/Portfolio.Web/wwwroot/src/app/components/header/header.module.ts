@@ -1,13 +1,14 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA}      from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, TemplateRef}      from '@angular/core';
 import { FormsModule }   from '@angular/forms';
+import {BrowserModule } from '@angular/platform-browser';
 import {HeaderComponent} from './header.component';
 
 @NgModule({
-    imports: [ FormsModule ],
+    imports: [ FormsModule , BrowserModule],
     declarations: [ HeaderComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-     exports: [HeaderComponent],
-    providers: [],
+    exports: [HeaderComponent],
+    providers: []
 })
 
 export class HeaderModule { }

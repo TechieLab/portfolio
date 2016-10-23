@@ -14,7 +14,7 @@ namespace Portfolio.Web
     public class Startup
     {
         private IMongoDbManager _manager;        
-        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
        
         public Startup(IHostingEnvironment env)
         {
@@ -49,7 +49,7 @@ namespace Portfolio.Web
 
             //app.UseIISPlatformHandler();
 
-            ConfigureApplication.Register(app, env);
+           new ConfigureApplication(Configuration).Register(app, env);
 
             new DatabaseInitService(userService, profileService, null).ValidateData();
         }

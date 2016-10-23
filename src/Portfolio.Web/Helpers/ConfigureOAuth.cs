@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,19 @@ using System.Threading.Tasks;
 
 namespace Store.Web.Helpers
 {
-    public static class ConfigureOAuth
-    {
-        public static Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+    public class ConfigureOAuth
+    {      
 
-        public static void Register(IApplicationBuilder app, IHostingEnvironment env)
+        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+
+        public ConfigureOAuth(IConfiguration _configuration)
         {
+            Configuration = _configuration;
+        }
+
+        public void Register(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            
             // Add the OAuth2 middleware
             app.UseOAuthAuthentication(new OAuthOptions
             {
@@ -31,7 +39,7 @@ namespace Store.Web.Helpers
 
                 // Set the callback path, so LinkedIn will call back to http://APP_URL/signin-linkedin
                 // Also ensure that you have added the URL as an Authorized Redirect URL in your LinkedIn application
-                CallbackPath = new PathString("/signin-linkedin"),
+                CallbackPath = new PathString("/"),
 
                 // Configure the LinkedIn endpoints                
                 AuthorizationEndpoint = "https://www.linkedin.com/oauth/v2/authorization",
@@ -89,8 +97,7 @@ namespace Store.Web.Helpers
                         }
                     }
                 }
-            });
-
+            });                       
         }
     }
 }

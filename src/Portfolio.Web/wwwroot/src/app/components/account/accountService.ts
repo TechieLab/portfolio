@@ -1,34 +1,47 @@
 ﻿import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
+import { Observable }  from 'rxjs/Observable';
 
-export class User {
-    constructor(
-        public email: string,
-        public password: string) { }
-}
-
-var users = [
-    new User('admin@admin.com', 'adm9'),
-    new User('user1@gmail.com', 'a23')
-];
+import {BaseApiService} from '../../services/baseApiService';
+import {IUser} from '../../models/user';
+import {LoginModel} from './account.model';
+import {IResult} from '../../models/result';
 
 @Injectable()
-export class AuthenticationService {
+export class AccountService {
 
-    constructor(
-        private _router: Router) { }
-
-    logout() {
-        this._router.navigate(['Login']);
+    constructor(private http : Http, private _router: Router) {
+       
     }
 
-    login(user) {
-        var authenticatedUser = users.find(u => u.email === user.email);
-        if (authenticatedUser && authenticatedUser.password === user.password) {
-            this._router.navigate(['Home']);
-            return true;
-        }
-        return false;
+    logout(): Observable<IResult> {
+        return this.http.get('api/account/logoff').map(this.extractData).catch(this.handleError);
+    }
+
+    authenticate(loginModel: LoginModel): Observable<IResult> {
+        let body = JSON.stringify({ loginModel });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post('api/account/authenticate', body, options)
+            .map(this.extractData)
+            .catch(this.handleError);        
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body.data || {};
+    }
+
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 
     checkCredentials() {

@@ -1,15 +1,15 @@
 ﻿import '../../rxjs-operators';
+import 'rxjs/add/operator/map';
 
-import {Injectable} from '@angular/core';
+import {Injectable, Optional} from '@angular/core';
 import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
-
 import { Observable }  from 'rxjs/Observable';
 import {IResult} from '../models/result';
 
 @Injectable()
 export class BaseApiService<TEntity> {
 
-    constructor(private http: Http) {
+    constructor(@Optional() private http: Http) {
 
     }
 
@@ -26,7 +26,7 @@ export class BaseApiService<TEntity> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.heroesUrl, body, options)
+        return this.http.post('', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -42,7 +42,7 @@ export class BaseApiService<TEntity> {
     }
 
     del(id : string): Observable<IResult> {
-        return this.http.get('/api/users').map(this.extractData).catch(this.handleError);
+        return this.http.get('').map(this.extractData).catch(this.handleError);
     }
     
     private extractData(res: Response) {
@@ -55,6 +55,7 @@ export class BaseApiService<TEntity> {
         // We'd also dig deeper into the error to get a better message
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }

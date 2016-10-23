@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import {LoginComponent} from './components/account/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {ProfileComponent} from './components/profile/profile.component';
@@ -12,7 +13,7 @@ import {MyWorkDetailComponent} from './components/my-work-detail/my-work-detail.
 
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
-    { path: '', component: DashboardComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'profile/:username', component: ProfileComponent },
     { path: 'blog', component: BlogComponent },
     { path: 'work', component: MyWorkComponent },
