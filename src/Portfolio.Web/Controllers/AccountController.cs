@@ -23,7 +23,7 @@ namespace Store.Web.Controllers
         }
         // POST api/values
         [HttpPost("authenticate")]
-        public Result Post([FromBody]LoginModel model)
+        public Result Post(LoginModel model)
         {
             if (model == null)
                 throw new ArgumentNullException("Form value can not be null");
