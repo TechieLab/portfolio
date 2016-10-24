@@ -20,7 +20,12 @@ export class AccountService {
     }
 
     authenticate(loginModel: LoginModel): Observable<IResult> {
-        let body = JSON.stringify({ loginModel });
+        let body = JSON.stringify({
+            LoginModel: {
+                UserName: loginModel.userName,
+                Password: loginModel.password
+            }
+        });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 

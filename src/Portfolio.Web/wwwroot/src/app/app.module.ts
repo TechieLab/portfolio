@@ -2,7 +2,7 @@ import {NgModule, CUSTOM_ELEMENTS_SCHEMA}      from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {FormsModule }   from '@angular/forms';
 import {BrowserModule } from '@angular/platform-browser';
-
+import { RouterModule } from '@angular/router';
 import {LayoutModule} from './components/layout/layout.module';
 import {AccountModule} from './components/account/account.module';
 
@@ -17,6 +17,8 @@ import {AppComponent} from './app.component';
         BrowserModule,
         FormsModule,
         HttpModule,
+        RouterModule,
+
         routing,
 
         LayoutModule,

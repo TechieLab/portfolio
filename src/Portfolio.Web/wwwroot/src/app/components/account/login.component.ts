@@ -18,7 +18,9 @@ export class LoginComponent {
 
     public errorMsg = '';
 
-    constructor(private router: Router, private _service: AccountService) { }
+    constructor(private router: Router, private _service: AccountService) {
+        this.loginModel = new LoginModel();
+    }
 
     login() {
         this._service.authenticate(this.loginModel).subscribe((response) => {

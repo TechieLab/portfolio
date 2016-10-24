@@ -17,7 +17,7 @@ namespace Store.Web.Helpers
     public class ConfigureOAuth
     {      
 
-        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         public ConfigureOAuth(IConfiguration _configuration)
         {
@@ -42,9 +42,9 @@ namespace Store.Web.Helpers
                 CallbackPath = new PathString("/"),
 
                 // Configure the LinkedIn endpoints                
-                AuthorizationEndpoint = "https://www.linkedin.com/oauth/v2/authorization",
-                TokenEndpoint = "https://www.linkedin.com/oauth/v2/accessToken",
-                UserInformationEndpoint = "https://api.linkedin.com/v1/people/~:(id,formatted-name,email-address,picture-url)",
+                AuthorizationEndpoint = Configuration["linkedin:authorizationEndpoint"],
+                TokenEndpoint = Configuration["linkedin:tokenEndpoint"],
+                UserInformationEndpoint = Configuration["linkedin:userInformationEndpoint"],
 
                 Scope = { "r_basicprofile", "r_emailaddress" },
 

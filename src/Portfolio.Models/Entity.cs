@@ -20,5 +20,7 @@ namespace Portfolio.Models
         
         [BsonRepresentation(BsonType.ObjectId)]
         public virtual ObjectId Id { get; set; }
+
+        public virtual Audit Audit { get; set; }
     }
 }

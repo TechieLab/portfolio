@@ -30,11 +30,22 @@ namespace Store.Web.Helpers
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            // Used to register OAuth for linkedIn.
-            new ConfigureOAuth(Configuration).Register(app, env);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                LoginPath = new PathString("/login"),
+                LogoutPath = new PathString("/logout")
+            });
+
+           
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
+            app.UseMvc();
+
+
             app.Use(async (context, next) =>
             {
                 await next();
@@ -44,18 +55,10 @@ namespace Store.Web.Helpers
                     context.Request.Path = "/index.html"; // Put your Angular root page here 
                     await next();
                 }
-            });          
+            });
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {                
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                LoginPath = new PathString("/login"),
-                LogoutPath = new PathString("/logout")
-            });     
-
-            app.UseMvcWithDefaultRoute();
-            app.UseMvc();
+            // Used to register OAuth for linkedIn.
+            new ConfigureOAuth(Configuration).Register(app, env);
 
             // Listen for requests on the /login path, and issue a challenge to log in with the LinkedIn middleware
             app.Map("/login", builder =>
@@ -79,6 +82,8 @@ namespace Store.Web.Helpers
                     context.Response.Redirect("/");
                 });
             });
+
+          
         }
     }
 }

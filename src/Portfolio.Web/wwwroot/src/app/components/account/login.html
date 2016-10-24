@@ -13,30 +13,26 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>-->
 
-    <div class="container">
-        <div class="title">
-            Welcome
-        </div>
-        <div class="panel-body">
+    <div class="by amt container">        
+        <div class="gc form panel-body">
             <div class="row">
-                <div class="input-field col s12">
-                    <input [(ngModel)]="user.email" id="email"
-                           type="email" class="validate">
-                    <label for="email">Email</label>
+                <div class="form-group col-sm-6">
+                    <label for="userName">User Name</label>
+                    <input [(ngModel)]="loginModel.userName" id="userName"
+                           type="text" class="form-control validate">                   
                 </div>
             </div>
 
             <div class="row">
-                <div class="input-field col s12">
-                    <input [(ngModel)]="user.password" id="password"
-                           type="password" class="validate">
+                <div class="form-group col-sm-6">
                     <label for="password">Password</label>
+                    <input [(ngModel)]="loginModel.password" id="password"
+                           type="password" class="form-control validate">                    
                 </div>
             </div>
-
             <span>{{errorMsg}}</span>
             <button (click)="login()"
-                    class="btn waves-effect waves-light"
+                    class="btn btn-primary btn-lg"
                     type="submit" name="action">
                 Login
             </button>
