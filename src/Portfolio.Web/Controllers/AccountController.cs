@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Portfolio.Services;
 using Microsoft.Extensions.Logging;
 using Portfolio.ViewModels;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,6 +23,22 @@ namespace Store.Web.Controllers
         {
             _accountService = accountService;
         }
+
+        [HttpGet("login")]
+        public IActionResult Login()
+        {
+            return new ChallengeResult("Auth0", new AuthenticationProperties() { RedirectUri = "/" });
+        }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Authentication.SignOutAsync("Auth0");
+            HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectPermanent("/login");
+        }
+
         // POST api/values
         [HttpPost("authenticate")]
         public Result Post(LoginModel model)

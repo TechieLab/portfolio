@@ -58,15 +58,15 @@ namespace Store.Web.Helpers
             });
 
             // Used to register OAuth for linkedIn.
-            new ConfigureOAuth(Configuration).Register(app, env);
-
+           // new ConfigureOAuth(Configuration).Register(app, env);
+           
             // Listen for requests on the /login path, and issue a challenge to log in with the LinkedIn middleware
             app.Map("/login", builder =>
             {
                 builder.Run(async context =>
                 {
                     // Return a challenge to invoke the LinkedIn authentication scheme
-                    await context.Authentication.ChallengeAsync("LinkedIn", properties: new AuthenticationProperties() { RedirectUri = "/" });
+                    await context.Authentication.ChallengeAsync("Auth0", properties: new AuthenticationProperties() { RedirectUri = "/" });
                 });
             });
 

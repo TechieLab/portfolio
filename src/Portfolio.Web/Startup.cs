@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Porfolio.Web.Services;
 using Portfolio.Core;
 using Portfolio.Models;
@@ -58,11 +59,11 @@ namespace Portfolio.Web
                 options.User.RequireUniqueEmail = true;
             });
 
-            ServiceCollectionExtensions.RegisterServices(services);
+            ServiceCollectionExtensions.RegisterServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<Auth0Settings> auth0Settings,
             ILoggerFactory loggerFactory, IMongoDbManager manager, IUserService userService,
             IProfileService profileService)
         {
@@ -77,7 +78,9 @@ namespace Portfolio.Web
             //app.UseIISPlatformHandler();
             app.UseIdentity();
 
-            new ConfigureApplication(Configuration).Register(app, env);
+            ConfigureOpenID.Configure(app, env, auth0Settings);
+
+            new ConfigureApplication(Configuration).Register(app, env);            
 
             new DatabaseInitService(userService, profileService, null).ValidateData();
         }
