@@ -1,4 +1,4 @@
-﻿<div class="account">
+﻿<!--<div class="account">
     <!--<form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
@@ -13,7 +13,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>-->
 
-    <div class="by amt container">        
+    <!-- <div class="by amt container">        
         <div class="gc form panel-body">
             <div class="row">
                 <div class="form-group col-sm-6">
@@ -30,12 +30,18 @@
                            type="password" class="form-control validate">                    
                 </div>
             </div>
-            <span>{{errorMsg}}</span>
+            <span></span>
             <button (click)="login()"
                     class="btn btn-primary btn-lg"
                     type="submit" name="action">
                 Login
             </button>
         </div>
-    </div>
+    </div> 
+</div> -->
+
+<div class="navbar-header">
+    <a class="navbar-brand" href="#">Auth0 - Angular 2</a>
+    <button class="btn btn-primary btn-margin" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
+    <button class="btn btn-primary btn-margin" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
 </div>

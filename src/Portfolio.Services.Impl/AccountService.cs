@@ -3,7 +3,6 @@ using System.Linq;
 using Portfolio.Models;
 using Microsoft.Extensions.Logging;
 using Portfolio.DAL;
-using Portfolio.DAL.CustomExceptions;
 
 namespace Portfolio.Services.Impl
 {
@@ -41,7 +40,7 @@ namespace Portfolio.Services.Impl
         {
             var originalUser = _userRepository.GetBy(u => u.UserName.ToUpper() == user.UserName.ToUpper()).FirstOrDefault();
 
-            if (originalUser == null) throw new UserNotFoundException(user.UserName);
+            //if (originalUser == null) throw new UserNotFoundException(user.UserName);
 
             originalUser.Password = user.Password;
             originalUser.Audit.ModifiedOn = DateTime.Now;

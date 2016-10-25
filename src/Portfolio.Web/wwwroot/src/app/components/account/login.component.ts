@@ -5,9 +5,13 @@ import {Router} from '@angular/router';
 import {LoginModel} from './account.model';
 import {IUser} from '../../models/user';
 
+//Auth Service
+import { Auth } from '../../services/auth.service';
+
+
 @Component({
     selector: 'login-form',
-    providers: [AccountService],
+    providers: [AccountService,Auth],
     template: require('./login.html')
 })
 
@@ -18,7 +22,7 @@ export class LoginComponent {
 
     public errorMsg = '';
 
-    constructor(private router: Router, private _service: AccountService) {
+    constructor(private router: Router, private _service: AccountService,private auth: Auth) {
         this.loginModel = new LoginModel();
     }
 

@@ -5,6 +5,7 @@ import {BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LayoutModule} from './components/layout/layout.module';
 import {AccountModule} from './components/account/account.module';
+import { AUTH_PROVIDERS }      from 'angular2-jwt';
 
 
 import { routing,
@@ -28,7 +29,8 @@ import {AppComponent} from './app.component';
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent],
     providers: [
-        appRoutingProviders
+        appRoutingProviders,
+        AUTH_PROVIDERS
     ]
 })
 
