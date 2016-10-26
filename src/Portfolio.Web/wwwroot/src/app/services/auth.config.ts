@@ -4,6 +4,6 @@
 }
 
 export const myConfig: AuthConfiguration = {
-    clientID: 'NKTkpzBwUzy3HTmYbGokEmlcOFnJTOfI',
-    domain: 'publicdomain.auth0.com'
+    clientID: 'ljGvKkasvW2qUDBDDaIKhfxc5OHSOFhy',
+    domain: 'portfolio.auth0.com'
 };
