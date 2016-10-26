@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {ProfileService} from './profile.service';
 import {IUser} from '../../models/user';
-import {UserService} from '../../services/userService';
+import {UserService} from '../../services/user.service';
 
 @Component({
     selector:'profile',

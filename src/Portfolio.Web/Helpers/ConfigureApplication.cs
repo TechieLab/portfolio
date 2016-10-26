@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Metadata;
+using System.IO;
 
 namespace Store.Web.Helpers
 {
@@ -44,8 +45,7 @@ namespace Store.Web.Helpers
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseMvc();
-
-
+                        
             app.Use(async (context, next) =>
             {
                 await next();
@@ -60,6 +60,7 @@ namespace Store.Web.Helpers
             // Used to register OAuth for linkedIn.
            // new ConfigureOAuth(Configuration).Register(app, env);
            
+        /*
             // Listen for requests on the /login path, and issue a challenge to log in with the LinkedIn middleware
             app.Map("/login", builder =>
             {
@@ -82,8 +83,7 @@ namespace Store.Web.Helpers
                     context.Response.Redirect("/");
                 });
             });
-
-          
+       */
         }
     }
 }

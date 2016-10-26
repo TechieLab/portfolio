@@ -1,6 +1,6 @@
 ﻿import {Injectable} from '@angular/core';
 import {tokenNotExpired} from 'angular2-jwt';
-import { myConfig } from './auth.config';
+import { authConfig } from '../config/auth.config';
 
 //Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -8,7 +8,7 @@ declare var Auth0Lock: any;
 @Injectable()
 export class Auth {
     //configure Auth0
-    lock = new Auth0Lock(myConfig.clientID, myConfig.domain, {});
+    lock = new Auth0Lock(authConfig.clientID, authConfig.domain, { auth: { redirectUrl: "http://localhost:5000/home" } });
 
     constructor() {
         // Add callback for lock `authenticated` event

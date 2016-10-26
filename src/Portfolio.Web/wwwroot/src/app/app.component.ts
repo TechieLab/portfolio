@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import {LayoutComponent} from './components/layout/layout.component';
 
-import {UserService} from './services/userService';
+import {UserService} from './services/user.service';
 import {IUser} from './models/user';
 
 @Component({

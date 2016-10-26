@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import { Observable }  from 'rxjs/Observable';
 
-import {BaseApiService} from '../../services/baseApiService';
+import {BaseApiService} from '../../services/base.service';
 import {IUser} from '../../models/user';
 import {LoginModel} from './account.model';
 import {IResult} from '../../models/result';
