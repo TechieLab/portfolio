@@ -11,7 +11,7 @@ import { Auth } from '../../services/auth.service';
 
 @Component({
     selector: 'login-form',
-    providers: [AccountService,Auth],
+    providers: [AccountService, Auth],
     template: require('./login.html')
 })
 

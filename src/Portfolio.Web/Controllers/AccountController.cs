@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Store.Web.Controllers
+namespace Portfolio.Web.Controllers
 {
     [Route("api/account")]
     public class AccountController : Controller

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portfolio.Core.Data.Extensions;
 using System.Linq.Expressions;
-using Portfolio.Core.Data.Specification;
 using MongoDB.Driver;
 using Portfolio.Models;
 using MongoDB.Bson;

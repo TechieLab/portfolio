@@ -9,6 +9,6 @@ namespace Portfolio.Services
 {
     public interface IProfileService : IBaseService<Profile>
     {
-
+       
     }
 }

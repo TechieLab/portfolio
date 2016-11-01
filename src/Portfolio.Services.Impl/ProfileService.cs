@@ -1,8 +1,10 @@
-﻿using Portfolio.DAL;
+﻿using Newtonsoft.Json;
+using Portfolio.DAL;
 using Portfolio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,6 @@ namespace Portfolio.Services.Impl
         public ProfileService(IProfileRepository repository) : base(repository)
         {
 
-        }     
+        }        
     }
 }
