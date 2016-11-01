@@ -25,9 +25,9 @@ namespace Portfolio.Services.Impl
             _repository.Add(entity);
         }
 
-        public void Create(List<TEntity> entityies)
+        public void Create(List<TEntity> entities)
         {
-            _repository.Add(entityies);
+            _repository.Add(entities);
         }
 
         public void Delete(ObjectId id)

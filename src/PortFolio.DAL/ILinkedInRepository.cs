@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Portfolio.DAL
 {
-    public interface ILinkedInRepository : IRepository<Models.LinkedIn.Profile>
+    public interface ILinkedInRepository
     {
-
+        Models.LinkedIn.Profile Add(Models.LinkedIn.Profile entity);
     }
 }

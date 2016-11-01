@@ -37,11 +37,13 @@ namespace Portfolio.Web.Helpers
             // services.AddSingleton<IRepository<T>, MongoRepository<T>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProfileRepository, ProfileRepository>();
+            services.AddSingleton<ILinkedInRepository, LinkedInRepository>();
 
             //services.AddSingleton<IBaseService, BaseService>();
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IProfileService, ProfileService>();
+            services.AddSingleton<ILinkedInService, LinkedInService>();
             // and a lot more Services
 
             services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));

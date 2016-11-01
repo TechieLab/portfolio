@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Models.LinkedIn
 {
-    public class Profile : Entity, IEntity
+    public class Profile
     {
+        public string id { get; set; }
         public DateOfBirth dateOfBirth { get; set; }
         public Educations educations { get; set; }
         public string firstName { get; set; }
-        public string headline { get; set; }
-        public string id { get; set; }
+        public string headline { get; set; }       
         public string industry { get; set; }
         public Languages languages { get; set; }
         public string lastName { get; set; }
