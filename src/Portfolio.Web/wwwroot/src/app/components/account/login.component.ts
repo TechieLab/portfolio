@@ -7,7 +7,7 @@ import {IUser} from '../../models/user';
 
 //Auth Service
 import { Auth } from '../../services/auth.service';
-import './account.scss';
+//import './account.scss';
 
 @Component({
     selector: 'login-form',
@@ -28,7 +28,7 @@ export class LoginComponent {
 
     login() {
         this._service.authenticate(this.loginModel).subscribe((response) => {
-            if (response.success) {
+            if (response && response.success) {
                 this.currentUser = response.content;
                 this.router.navigate(['home']);
             } else {
