@@ -7,7 +7,7 @@ import {IUser} from '../../models/user';
 
 //Auth Service
 import { Auth } from '../../services/auth.service';
-
+import './account.scss';
 
 @Component({
     selector: 'login-form',

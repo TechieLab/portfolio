@@ -13,6 +13,7 @@ import {MyWorkDetailComponent} from './components/my-work-detail/my-work-detail.
 
 const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
+    { path: 'home', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     { path: 'profile/:username', component: ProfileComponent },
     { path: 'blog', component: BlogComponent },

@@ -29,7 +29,7 @@ namespace Store.Web.Helpers
 
                 // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0 
                 // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard 
-                CallbackPath = new PathString("/profile"),
+                CallbackPath = new PathString("/home"),
 
                 // Configure the Claims Issuer to be Auth0
                 ClaimsIssuer = "Auth0"

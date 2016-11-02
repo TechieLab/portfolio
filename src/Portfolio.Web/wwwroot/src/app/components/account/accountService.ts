@@ -20,12 +20,8 @@ export class AccountService {
     }
 
     authenticate(loginModel: LoginModel): Observable<IResult> {
-        let body = JSON.stringify({
-            LoginModel: {
-                UserName: loginModel.userName,
-                Password: loginModel.password
-            }
-        });
+        let body = "userName=" + loginModel.userName +
+            "&password=" + loginModel.password;
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
 
@@ -36,7 +32,7 @@ export class AccountService {
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
 
     private handleError(error: any) {

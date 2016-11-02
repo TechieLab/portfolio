@@ -22,7 +22,7 @@ namespace Portfolio.DAL.Impl
         public LinkedInRepository(string connectionString)
         {
             var client = new MongoClient(connectionString);
-            var db =  client.GetDatabase("portfolio");
+            var db =  client.GetDatabase("portfoliodb");
 
             collection = db.GetCollection<Profile>("linkedinprofiles");
         }

@@ -41,17 +41,17 @@ namespace Portfolio.Web.Controllers
 
         // POST api/values
         [HttpPost("authenticate")]
-        public Result Post(LoginModel model)
+        public Result Post(LoginModel loginModel)
         {
-            if (model == null)
+            if (loginModel == null)
                 throw new ArgumentNullException("Form value can not be null");
 
             if (ModelState.IsValid)
             {
-                var username = model.UserName;
-                var password = model.Password;
+                var username = loginModel.UserName;
+                var password = loginModel.Password;
 
-                var currentUser = _accountService.Authenticate(model.UserName, model.Password);
+                var currentUser = _accountService.Authenticate(loginModel.UserName, loginModel.Password);
 
                 if (currentUser == null)
                 {

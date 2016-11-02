@@ -6,7 +6,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var helpers = require('./helpers');
 var nodeExternals = require('webpack-node-externals');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
-var  CopyWebpackPlugin = require('copy-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -49,17 +49,8 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
       },
       {
-        test: /\.css$/,
-        include: helpers.root('src', 'app'),
-        loader: 'raw'
-      },
-      {
-         test: /\.less$/,
-          loader: ExtractTextPlugin.extract(
-              // activate source maps via loader query
-              'css?sourceMap!' +
-              'less?sourceMap'
-          )
+         test: /\.scss$/,
+         loaders: ["style", "css?sourceMap", "sass?sourceMap"]
       }
     ]
   },
