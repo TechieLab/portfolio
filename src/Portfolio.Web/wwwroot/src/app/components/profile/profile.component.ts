@@ -19,7 +19,7 @@ export class ProfileComponent{
      code: Subscription;
      userResult: IUser;    
 
-     constructor(private profile_service: ProfileService, private activatedRoute: ActivatedRoute, private userService: UserService){
+     constructor(private profileService: ProfileService, private activatedRoute: ActivatedRoute, private userService: UserService){
         this.getProfile();
      }
 
@@ -36,12 +36,12 @@ export class ProfileComponent{
 
     getProfile(){
         let self = this;
-        this.profile_service.getLinkedinProfile().subscribe(function(response:any){
-               self.postItem = JSON.parse(response._body);
-               console.log(self.postItem);
-              if(!self.postItem.length){
-                  self.errorMessage = true;
-               }
-          });
+        var userContext = JSON.parse(localStorage.getItem('user-context'));
+
+        if (userContext) {
+            this.profileService.getProfile(userContext.id).subscribe((response: any) => {
+               
+            });
+        }        
     }
 }

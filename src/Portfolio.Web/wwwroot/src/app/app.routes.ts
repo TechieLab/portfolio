@@ -15,6 +15,7 @@ const appRoutes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'home', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent },
     { path: 'profile/:username', component: ProfileComponent },
     { path: 'blog', component: BlogComponent },
     { path: 'work', component: MyWorkComponent },

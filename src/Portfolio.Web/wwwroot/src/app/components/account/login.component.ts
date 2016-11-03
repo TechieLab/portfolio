@@ -29,11 +29,21 @@ export class LoginComponent {
     login() {
         this._service.authenticate(this.loginModel).subscribe((response) => {
             if (response && response.success) {
-                this.currentUser = response.content;
+                localStorage.setItem('user-context', JSON.stringify(response.content));
+                localStorage.setItem('auth_token', "sdffasfdasfd435353asdfasdf");
                 this.router.navigate(['home']);
             } else {
                 this.errorMsg = response.message;
             }            
         });        
+    }
+
+    logout() {
+        localStorage.removeItem('auth_token');
+        this.router.navigate(['login']);
+    }
+
+    isLoggedIn() {
+        return !!localStorage.getItem('auth_token');
     }
 }

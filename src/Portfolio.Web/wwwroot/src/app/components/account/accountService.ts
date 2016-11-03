@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import { Observable }  from 'rxjs/Observable';
 
-import {BaseApiService} from '../../services/base.service';
 import {IUser} from '../../models/user';
 import {LoginModel} from './account.model';
 import {IResult} from '../../models/result';
@@ -22,6 +21,7 @@ export class AccountService {
     authenticate(loginModel: LoginModel): Observable<IResult> {
         let body = "userName=" + loginModel.userName +
             "&password=" + loginModel.password;
+
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });
 

@@ -7,18 +7,25 @@ import { Observable }  from 'rxjs/Observable';
 import {IResult} from '../models/result';
 
 @Injectable()
-export class BaseApiService<TEntity> {
+export class BaseService<TEntity> {
 
-    constructor(@Optional() private http: Http) {
+    url: string;
+    entity: TEntity;
 
+    constructor( @Optional() public http: Http) {
+        this.url = '/api/' + typeof this.entity;
     }
 
     get(): Observable<Array<TEntity>> {
-        return this.http.get('/api/users').map(this.extractData).catch(this.handleError);
+        return this.http.get(this.url).map(this.extractData).catch(this.handleError);
     }
 
     getById(id: string): Observable<TEntity> {
-        return this.http.get('/api/users').map(this.extractData).catch(this.handleError);
+        return this.http.get(this.url).map(this.extractData).catch(this.handleError);
+    }
+
+    getByUserId(id: string): Observable<TEntity> {
+        return this.http.get(this.url).map(this.extractData).catch(this.handleError);
     }
 
     post(entity: TEntity): Observable<IResult> {
@@ -26,7 +33,7 @@ export class BaseApiService<TEntity> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post('', body, options)
+        return this.http.post(this.url, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -36,13 +43,13 @@ export class BaseApiService<TEntity> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put('', body, options)
+        return this.http.put(this.url, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    del(id : string): Observable<IResult> {
-        return this.http.get('').map(this.extractData).catch(this.handleError);
+    del(id: string): Observable<IResult> {
+        return this.http.delete(this.url).map(this.extractData).catch(this.handleError);
     }
     
     private extractData(res: Response) {
