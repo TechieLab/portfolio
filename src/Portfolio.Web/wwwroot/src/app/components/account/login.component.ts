@@ -2,16 +2,16 @@
 import {AccountService} from './accountService'
 import {Router} from '@angular/router';
 
-import {LoginModel} from './account.model';
+import {LoginModel} from '../../models/login';
 import {IUser} from '../../models/user';
 
 //Auth Service
-import { Auth } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 //import './account.scss';
 
 @Component({
     selector: 'login-form',
-    providers: [AccountService, Auth],
+    providers: [AuthService],
     template: require('./login.html')
 })
 
@@ -22,15 +22,16 @@ export class LoginComponent {
 
     public errorMsg = '';
 
-    constructor(private router: Router, private _service: AccountService,private auth: Auth) {
+    constructor(private router: Router, private authService: AuthService) {
         this.loginModel = new LoginModel();
     }
 
     login() {
-        this._service.authenticate(this.loginModel).subscribe((response) => {
+        this.authService.authenticate(this.loginModel).subscribe((response) => {
             if (response && response.success) {
                 localStorage.setItem('user-context', JSON.stringify(response.content));
                 localStorage.setItem('auth_token', "sdffasfdasfd435353asdfasdf");
+                this.authService.emitAuthChangeEvent();
                 this.router.navigate(['home']);
             } else {
                 this.errorMsg = response.message;

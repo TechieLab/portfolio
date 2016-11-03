@@ -1,36 +1,51 @@
 ﻿import {Injectable} from '@angular/core';
-import {tokenNotExpired} from 'angular2-jwt';
-import { authConfig } from '../config/auth.config';
-
-//Avoid name not found warnings
-declare var Auth0Lock: any;
+import {Router} from '@angular/router';
+import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular/http';
+import { Observable }  from 'rxjs/Observable';
+import {EventEmitter} from '@angular/core';
+import {IUser} from '../models/user';
+import {LoginModel} from '../models/login';
+import {IResult} from '../models/result';
 
 @Injectable()
-export class Auth {
-    //configure Auth0
-    lock = new Auth0Lock(authConfig.clientID, authConfig.domain, { auth: { redirectUrl: "http://localhost:5000/home" } });
-
-    constructor() {
-        // Add callback for lock `authenticated` event
-        this.lock.on("authenticated", (authResult) => {
-            console.log('authResult...'+ authResult);
-            localStorage.setItem('id_token', authResult.idToken);
-        });
+export class AuthService {
+    authchange: EventEmitter<any> = new EventEmitter();
+        
+    constructor(private http: Http, private _router: Router) {
+        
     }
 
-    public login() {
-        // Call the show method to display the widget.
-        this.lock.show();
-    };
+    emitAuthChangeEvent() {
+        this.authchange.emit();
+    }
+    getAuthChangeEmitter() {
+        return this.authchange;
+    }
 
-    public authenticated() {
-        // Check if there's an unexpired JWT
-        // This searches for an item in localStorage with key == 'id_token'
-        return tokenNotExpired();
-    };
+    authenticate(loginModel: LoginModel): Observable<IResult> {
+        let body = "userName=" + loginModel.userName +
+            "&password=" + loginModel.password;
 
-    public logout() {
-        // Remove token from localStorage
-        localStorage.removeItem('id_token');
-    };
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post('api/account/authenticate', body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || {};
+    }
+
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
+    }
 }
