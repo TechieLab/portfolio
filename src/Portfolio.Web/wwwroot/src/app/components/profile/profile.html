@@ -1,7 +1,7 @@
 <div class="anq" id="app-growl"></div>
 
 
-<div class="ans dj" style="background-image: url(/./assets/images/iceland.jpg);">
+<div class="ans dj" *ngIf="myProfile" style="background-image: url(/./assets/images/iceland.jpg);">
   <div class="by">
     <div class="ant">
       <img class="cu qh" src="/./assets/images/avatar-dhg.png">
@@ -25,6 +25,18 @@
       </li>
     </ul>
   </nav>
+</div>
+
+<div class="col-sm-12">
+    <div>
+        <p>Manage your profile.</p>
+    </div>
+    <div>
+        <button (click)="createProfile()">Create</button>
+    </div>
+    <div>
+        <button (click)="importProfile()">Import</button>
+    </div>
 </div>
 
 

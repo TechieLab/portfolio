@@ -93,12 +93,13 @@ namespace Portfolio.DAL.Impl
                 .GetCollection<T>(collectionName);
         }
 
+
         /// <summary>
-        /// Determines the collectionname for T and assures it is not empty
+        /// Return Entity Name from the type
         /// </summary>
-        /// <typeparam name="T">The type to determine the collectionname for.</typeparam>
-        /// <returns>Returns the collectionname for T.</returns>
-        private static string GetCollectionName<T>() where T : IEntity
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static string GetEnityNameFromType<T>()
         {
             string collectionName;
             if (typeof(T).BaseType.Equals(typeof(object)))
@@ -114,7 +115,18 @@ namespace Portfolio.DAL.Impl
             {
                 throw new ArgumentException("Collection name cannot be empty for this entity");
             }
-            return collectionName.ToLower() + 's';
+
+            return collectionName;
+        }
+
+        /// <summary>
+        /// Determines the collectionname for T and assures it is not empty
+        /// </summary>
+        /// <typeparam name="T">The type to determine the collectionname for.</typeparam>
+        /// <returns>Returns the collectionname for T.</returns>
+        private static string GetCollectionName<T>() where T : IEntity
+        {           
+            return GetEnityNameFromType<T>() + 's';
         }
 
         /// <summary>

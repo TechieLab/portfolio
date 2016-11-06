@@ -16,6 +16,7 @@ using AutoMapper;
 
 namespace Portfolio.Web.Controllers
 {
+    [Route("api/[controller]")]
     public class ProfileController : BaseController<DomainModels.Profile ,ViewModels.Profile>
     {
         private readonly IProfileService _profileService;        
@@ -26,6 +27,18 @@ namespace Portfolio.Web.Controllers
         {
             _profileService = profileService;            
             _logger = logger;
-        }               
+        }
+
+        // GET api/values/5
+        [HttpGet("[action]/{id}")]
+        public ViewModels.Profile GetByUserId(string id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("Id value cannot be null");
+
+            var result = _profileService.GetBy(l => l.UserId == new ObjectId(id)).FirstOrDefault();
+
+            return Mapper.Map<DomainModels.Profile, ViewModels.Profile>(result);
+        }
     }
 }

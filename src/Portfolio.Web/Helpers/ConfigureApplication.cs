@@ -60,9 +60,9 @@ namespace Store.Web.Helpers
             // Used to register OAuth for linkedIn.
            // new ConfigureOAuth(Configuration).Register(app, env);
            
-        /*
+        
             // Listen for requests on the /login path, and issue a challenge to log in with the LinkedIn middleware
-            app.Map("/login", builder =>
+            app.Map("/external-login", builder =>
             {
                 builder.Run(async context =>
                 {
@@ -70,7 +70,7 @@ namespace Store.Web.Helpers
                     await context.Authentication.ChallengeAsync("Auth0", properties: new AuthenticationProperties() { RedirectUri = "/" });
                 });
             });
-
+        /*
             // Listen for requests on the /logout path, and sign the user out
             app.Map("/logout", builder =>
             {

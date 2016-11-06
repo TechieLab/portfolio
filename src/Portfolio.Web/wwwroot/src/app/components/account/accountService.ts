@@ -4,7 +4,7 @@ import {Http, Headers, Response, RequestOptions, URLSearchParams} from '@angular
 import { Observable }  from 'rxjs/Observable';
 
 import {IUser} from '../../models/user';
-import {LoginModel} from './account.model';
+import {LoginModel} from '../../models/login';
 import {IResult} from '../../models/result';
 
 @Injectable()

@@ -12,19 +12,22 @@ export class BaseService<TEntity> {
     url: string;
     entity: TEntity;
 
-    constructor( @Optional() public http: Http) {
-        this.url = '/api/' + typeof this.entity;
+    constructor( @Optional() public http: Http, entityName : string) {
+        this.url = '/api/' + entityName;
     }
 
     get(): Observable<Array<TEntity>> {
+        this.url = this.url + '/get';
         return this.http.get(this.url).map(this.extractData).catch(this.handleError);
     }
 
     getById(id: string): Observable<TEntity> {
+        this.url = this.url + '/get/' + id;
         return this.http.get(this.url).map(this.extractData).catch(this.handleError);
     }
 
     getByUserId(id: string): Observable<TEntity> {
+        this.url = this.url + '/getByUser/' + id;
         return this.http.get(this.url).map(this.extractData).catch(this.handleError);
     }
 

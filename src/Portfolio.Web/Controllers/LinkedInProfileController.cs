@@ -18,7 +18,7 @@ namespace Portfolio.Web.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("get-profile/{authToken}")]
+        [HttpGet("profile-import/{authToken}")]
         public void Get(string authToken)
         {
            var obj =  _service.RetriveLinkedInProfile(authToken);

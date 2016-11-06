@@ -35,16 +35,16 @@ namespace Portfolio.Web.Controllers
         public IEnumerable<TEntityOut> Get()
         {            
             return Mapper.Map<List<TEnityIn>, List<TEntityOut>>(_baseService.Get());
-        }
+        }       
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public TEntityOut Get(ObjectId id)
+        public TEntityOut Get(string id)
         {
             if (id == null)
                 throw new ArgumentNullException("Id value cannot be null");
 
-            var result = _baseService.GetBy(l => l.Id == id).FirstOrDefault();
+            var result = _baseService.GetBy(l => l.Id == new ObjectId(id)).FirstOrDefault();
 
             return Mapper.Map<TEnityIn, TEntityOut>(result);
         }
@@ -61,22 +61,22 @@ namespace Portfolio.Web.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(ObjectId id, [FromBody]TEntityOut value)
+        public void Put(string id, [FromBody]TEntityOut value)
         {
             if (value == null)
                 throw new ArgumentNullException("Form value can not be null");
 
-            _baseService.Update(id, Mapper.Map<TEntityOut, TEnityIn>(value));
+            _baseService.Update(new ObjectId(id), Mapper.Map<TEntityOut, TEnityIn>(value));
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(ObjectId id)
+        public void Delete(string id)
         {
             if (id == null)
                 throw new ArgumentNullException("Id value cannot be null");
 
-            _baseService.Delete(id);
+            _baseService.Delete(new ObjectId(id));
         }
     }
 }

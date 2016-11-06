@@ -9,10 +9,14 @@ export class ProfileService extends BaseService<IProfile> {
     data: Array<Object>;
 
     constructor(public http: Http) {
-        super(http);
+        super(http, 'profile');
     }
 
     getProfile(id : string): Observable<IProfile> {
         return this.getByUserId(id);
+    }
+
+    importLinkedInProfile() {
+        return this.http.get('api/linkedIn/profile-import')
     }
 }

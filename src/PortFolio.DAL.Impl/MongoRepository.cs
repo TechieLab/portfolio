@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Portfolio.DAL;
 using Portfolio.Models;
+using Portfolio.DAL.CustomExceptions;
 
 namespace Portfolio.DAL.Impl
 {
@@ -14,15 +15,15 @@ namespace Portfolio.DAL.Impl
     /// <summary>
     /// Deals with entities in MongoDb.
     /// </summary>
-    /// <typeparam name="T">The type contained in the repository.</typeparam>
+    /// <typeparam name="TEntity">The type contained in the repository.</typeparam>
     /// <typeparam name="TKey">The type used for the entity's Id.</typeparam>
-    public class MongoRepository<T> : IRepository<T>
-        where T : IEntity
+    public class MongoRepository<TEntity> : IRepository<TEntity>
+        where TEntity : IEntity
     {        
         /// <summary>
         /// MongoCollection field.
         /// </summary>
-        protected internal IMongoCollection<T> collection;
+        protected internal IMongoCollection<TEntity> collection;
 
         /// <summary>
         /// Initializes a new instance of the MongoRepository class.
@@ -40,7 +41,7 @@ namespace Portfolio.DAL.Impl
         /// <param name="connectionString">Connectionstring to use for connecting to MongoDB.</param>
         public MongoRepository(string connectionString)
         {
-           collection = MongoUtil.GetCollectionFromConnectionString<T>(connectionString);
+           collection = MongoUtil.GetCollectionFromConnectionString<TEntity>(connectionString);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Portfolio.DAL.Impl
         /// <param name="collectionName">The name of the collection to use.</param>
         public MongoRepository(string connectionString, string collectionName)
         {
-           collection = MongoUtil.GetCollectionFromConnectionString<T>(connectionString, collectionName);
+           collection = MongoUtil.GetCollectionFromConnectionString<TEntity>(connectionString, collectionName);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace Portfolio.DAL.Impl
         /// <param name="url">Url to use for connecting to MongoDB.</param>
         public MongoRepository(MongoUrl url)
         {
-           collection = MongoUtil.GetCollectionFromUrl<T>(url);
+           collection = MongoUtil.GetCollectionFromUrl<TEntity>(url);
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Portfolio.DAL.Impl
         /// <param name="collectionName">The name of the collection to use.</param>
         public MongoRepository(MongoUrl url, string collectionName)
         {
-           collection = MongoUtil.GetCollectionFromUrl<T>(url, collectionName);
+           collection = MongoUtil.GetCollectionFromUrl<TEntity>(url, collectionName);
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Portfolio.DAL.Impl
         /// for most purposes you can use the MongoRepositoryManager&lt;T&gt;
         /// </remarks>
         /// <value>The Mongo collection (to perform advanced operations).</value>
-        public IMongoCollection<T> Collection
+        public IMongoCollection<TEntity> Collection
         {
             get { return collection; }
         }
@@ -99,10 +100,12 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="id">The Id of the entity to retrieve.</param>
         /// <returns>The Entity T.</returns>
-        public virtual T Get(ObjectId id)
+        public virtual TEntity Get(ObjectId id)
         {  
-            var query = Builders<T>.Filter.Eq("_id", id);
+            var query = Builders<TEntity>.Filter.Eq("_id", id);
             var list =collection.Find(query).ToListAsync();
+            if(list == null)
+                throw new EntityNotFoundException<TEntity>();
 
             return list.Result.FirstOrDefault();
         }
@@ -112,9 +115,13 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="criteria"></param>
         /// <returns></returns>
-        public virtual List<T> GetBy(Expression<Func<T, bool>> criteria)
+        public virtual List<TEntity> GetBy(Expression<Func<TEntity, bool>> criteria)
         {
-            return collection.AsQueryable<T>().Where(criteria).ToList();
+            var result = collection.AsQueryable<TEntity>().Where(criteria);
+            if (result == null)
+                throw new EntityNotFoundException<TEntity>(criteria);
+
+            return result.ToList();
         }        
 
         /// <summary>
@@ -122,10 +129,10 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="id">The Id of the entity to retrieve.</param>
         /// <returns>The Entity T.</returns>
-        public virtual List<T> Get()
+        public virtual List<TEntity> Get()
         {
-            var entities =collection.AsQueryable<T>().ToList<T>();
-            return entities;
+            var entities =collection.AsQueryable<TEntity>();
+            return entities.ToList<TEntity>();
         }
 
         /// <summary>
@@ -133,18 +140,17 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="entity">The entity T.</param>
         /// <returns>The added entity including its new ObjectId.</returns>
-        public virtual T Add(T entity)
+        public virtual TEntity Add(TEntity entity)
         {
            collection.InsertOneAsync(entity);
-
-            return entity;
+           return entity;
         }
 
         /// <summary>
         /// Adds the new entities in the repository.
         /// </summary>
         /// <param name="entities">The entities of type T.</param>
-        public virtual void Add(IEnumerable<T> entities)
+        public virtual void Add(IEnumerable<TEntity> entities)
         {
            collection.InsertManyAsync(entities);
         }
@@ -154,9 +160,9 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns>The updated entity.</returns>
-        public virtual T Update(T entity)
+        public virtual TEntity Update(TEntity entity)
         {
-            var query = Builders<T>.Filter.Eq("_id", entity.Id);
+            var query = Builders<TEntity>.Filter.Eq("_id", entity.Id);
             var update =collection.ReplaceOneAsync(query, entity);
 
             return entity;
@@ -166,11 +172,11 @@ namespace Portfolio.DAL.Impl
         /// Upserts the entities.
         /// </summary>
         /// <param name="entities">The entities to update.</param>
-        public virtual void Update(IEnumerable<T> entities)
+        public virtual void Update(IEnumerable<TEntity> entities)
         {
-            foreach (T entity in entities)
+            foreach (TEntity entity in entities)
             {
-                var query = Builders<T>.Filter.Eq("_id", entity.Id);
+                var query = Builders<TEntity>.Filter.Eq("_id", entity.Id);
                collection.ReplaceOne(query, entity);
             }
         }      
@@ -181,7 +187,7 @@ namespace Portfolio.DAL.Impl
         /// <param name="id">The ObjectId of the entity.</param>
         public virtual void Delete(ObjectId id)
         {
-            var query = Builders<T>.Filter.Eq("_id", id);
+            var query = Builders<TEntity>.Filter.Eq("_id", id);
             var result =collection.DeleteOneAsync(query);
         }
 
@@ -189,7 +195,7 @@ namespace Portfolio.DAL.Impl
         /// Deletes the given entity.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        public virtual void Delete(T entity)
+        public virtual void Delete(TEntity entity)
         {
            Delete(entity.Id);
         }
@@ -198,9 +204,9 @@ namespace Portfolio.DAL.Impl
         /// Deletes the entities matching the predicate.
         /// </summary>
         /// <param name="predicate">The expression.</param>
-        public virtual void Delete(Expression<Func<T, bool>> predicate)
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            foreach (T entity in collection.AsQueryable<T>().Where(predicate))
+            foreach (TEntity entity in collection.AsQueryable<TEntity>().Where(predicate))
             {
                Delete(entity.Id);
             }
@@ -228,9 +234,9 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         /// <param name="predicate">The expression.</param>
         /// <returns>True when an entity matching the predicate exists, false otherwise.</returns>
-        public virtual bool Exists(Expression<Func<T, bool>> predicate)
+        public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
         {
-            return collection.AsQueryable<T>().Any(predicate);
+            return collection.AsQueryable<TEntity>().Any(predicate);
         }
 
         #region IQueryable<T>
@@ -238,9 +244,9 @@ namespace Portfolio.DAL.Impl
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>An IEnumerator&lt;T&gt; object that can be used to iterate through the collection.</returns>
-        public virtual IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<TEntity> GetEnumerator()
         {
-            return collection.AsQueryable<T>().GetEnumerator();
+            return collection.AsQueryable<TEntity>().GetEnumerator();
         }
 
         /// <summary>
@@ -249,7 +255,7 @@ namespace Portfolio.DAL.Impl
         /// <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return collection.AsQueryable<T>().GetEnumerator();
+            return collection.AsQueryable<TEntity>().GetEnumerator();
         }
 
         public void Dispose()
@@ -262,7 +268,7 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         public virtual Type ElementType
         {
-            get { return collection.AsQueryable<T>().ElementType; }
+            get { return collection.AsQueryable<TEntity>().ElementType; }
         }
 
         /// <summary>
@@ -270,7 +276,7 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         public virtual Expression Expression
         {
-            get { return collection.AsQueryable<T>().Expression; }
+            get { return collection.AsQueryable<TEntity>().Expression; }
         }
 
         /// <summary>
@@ -278,7 +284,7 @@ namespace Portfolio.DAL.Impl
         /// </summary>
         public virtual IQueryProvider Provider
         {
-            get { return collection.AsQueryable<T>().Provider; }
+            get { return collection.AsQueryable<TEntity>().Provider; }
         }
         #endregion
     }
