@@ -19,9 +19,7 @@ import {AppComponent} from './app.component';
         FormsModule,
         HttpModule,
         RouterModule,
-
         routing,
-
         LayoutModule,
         AccountModule             
     ],

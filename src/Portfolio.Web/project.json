@@ -15,7 +15,7 @@
     "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
-    "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0",    
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
@@ -33,7 +33,8 @@
     "Portfolio.Models": "1.0.0",
     "Portfolio.Services": "1.0.0",
     "Portfolio.Services.Impl": "1.0.0",
-    "Portfolio.ViewModels": "1.0.0"
+    "Portfolio.ViewModels": "1.0.0",
+    "Serilog.Extensions.Logging.File": "1.0.0"
   },
 
   "library": {

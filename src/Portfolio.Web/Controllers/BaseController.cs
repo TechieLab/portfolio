@@ -21,13 +21,11 @@ namespace Portfolio.Web.Controllers
     [Route("api/[controller]")]
     public abstract class BaseController<TEnityIn,TEntityOut> : Controller where TEnityIn : IEntity where TEntityOut : class
     {
-        private readonly IBaseService<TEnityIn> _baseService;
-        private readonly ILogger<IBaseService<TEnityIn>> _logger;
+        private readonly IBaseService<TEnityIn> _baseService;        
 
-        public BaseController(IBaseService<TEnityIn> baseService, ILogger<IBaseService<TEnityIn>> logger)
+        public BaseController(IBaseService<TEnityIn> baseService)
         {
-            _baseService = baseService;
-            _logger = logger;
+            _baseService = baseService;            
         }
 
         // GET: api/values

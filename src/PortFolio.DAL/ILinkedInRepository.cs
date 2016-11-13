@@ -8,6 +8,7 @@ namespace Portfolio.DAL
 {
     public interface ILinkedInRepository
     {
+        Models.LinkedIn.Profile Get(string id);
         Models.LinkedIn.Profile Add(Models.LinkedIn.Profile entity);
     }
 }

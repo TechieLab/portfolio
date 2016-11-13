@@ -6,18 +6,18 @@ using System.Security.Principal;
 namespace Portfolio.Core.Security
 {
     /// <summary>
-    /// Defines extension methods on <c>System.Security.Claims.ClaimsPrincipal</c> class to get MTX specific
+    /// Defines extension methods on <c>System.Security.Claims.ClaimsPrincipal</c> class to get Portfolio specific
     /// claims.
     /// </summary>
     public static class ClaimsPrincipalExtensions
     {      
  
         /// <summary>
-        /// Gets the <see cref="T:MTX.Models.User">UserId</see> of the user identified by the <paramref name="principal"/>.
+        /// Gets the <see cref="T:Portfolio.Models.User">UserId</see> of the user identified by the <paramref name="principal"/>.
         /// </summary>
-        /// <param name="principal">The principal whose MTX <c>UserId</c> is to be returned.</param>
+        /// <param name="principal">The principal whose Portfolio <c>UserId</c> is to be returned.</param>
         /// <returns>
-        /// <see cref="T:MTX.Models.User">UserId</see> represented by the current user.
+        /// <see cref="T:Portfolio.Models.User">UserId</see> represented by the current user.
         /// </returns>
         /// <remarks>
         /// The value returned is essentially <c>USERS.USER_ID</c>.
@@ -25,11 +25,11 @@ namespace Portfolio.Core.Security
         /// <exception cref="T:System.ArgumentNullException">
         /// Thrown if <paramref name="principal"/> is <c>null</c>.
         /// </exception>
-        /// <exception cref="T:MTX.Security.ClaimNotFoundException">
-        /// Thrown if <see cref="F:CAMP.Security.ClaimTypes.UserId">MTXUserId</see> claim is not found.
+        /// <exception cref="T:Portfolio.Security.ClaimNotFoundException">
+        /// Thrown if <see cref="F:CAMP.Security.ClaimTypes.UserId">PortfolioUserId</see> claim is not found.
         /// </exception>
         /// <seealso cref="F:CAMP.Security.ClaimTypes.UserId"/>
-        public static int GetUserId(this IPrincipal principal)
+        public static string GetUserId(this IPrincipal principal)
         {
             if (principal == null) throw new ArgumentNullException("principal");
             var claimsPrincipal = principal as ClaimsPrincipal;
@@ -54,7 +54,7 @@ namespace Portfolio.Core.Security
                 //{
                 //    log.DebugFormat("UserId found in claim [{0}]", userIdClaim);
                 //}
-                return Convert.ToInt32(userIdClaim.Value);
+                return userIdClaim.Value;
             }
             string principalName = null;
             if (principal.Identity != null)

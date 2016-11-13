@@ -19,14 +19,12 @@ namespace Portfolio.Web.Controllers
     [Route("api/[controller]")]
     public class ProfileController : BaseController<DomainModels.Profile ,ViewModels.Profile>
     {
-        private readonly IProfileService _profileService;        
-        private readonly ILogger<ProfileController> _logger;
+        private readonly IProfileService _profileService;  
 
-        public ProfileController(IProfileService profileService, ILogger<IProfileService> serviceLogger, ILogger<ProfileController> logger)
-            : base(profileService, serviceLogger)
+        public ProfileController(IProfileService profileService)
+            : base(profileService)
         {
-            _profileService = profileService;            
-            _logger = logger;
+            _profileService = profileService;   
         }
 
         // GET api/values/5

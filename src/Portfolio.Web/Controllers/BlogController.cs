@@ -18,14 +18,11 @@ namespace Portfolio.Web.Controllers
 {
     public class BlogController : BaseController<DomainModels.Blog.Blog, ViewModels.Blog.Blog>
     {
-
         private readonly IBlogService _blogService;
-        private readonly ILogger<BlogController> _logger;
 
-        public BlogController(IBlogService service, ILogger<BlogController> logger , ILogger<IBlogService> loggerService) : base(service, loggerService)
+        public BlogController(IBlogService service) : base(service)
         {
             _blogService = service;
-            _logger = logger;
         }      
     }
 }

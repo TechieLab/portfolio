@@ -24,5 +24,6 @@ namespace Portfolio.Models.LinkedIn
         public ThreeCurrentPositions threeCurrentPositions { get; set; }
         public ThreePastPositions threePastPositions { get; set; }
         public Volunteer volunteer { get; set; }
+        public string UserId { get; set; }
     }
 }

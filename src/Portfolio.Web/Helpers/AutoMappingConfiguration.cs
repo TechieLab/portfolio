@@ -8,6 +8,7 @@ using ViewModels = Portfolio.ViewModels;
 
 namespace Portfolio.Web.Helpers
 {
+
     public static class AutoMappingConfiguration
     {
         public static void Configure()

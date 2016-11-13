@@ -2,49 +2,47 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Portfolio.Services;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Threading;
+using Portfolio.Core.Security;
 
-namespace Store.Web.Helpers
+namespace Portfolio.Web.Helpers
 {
     public class ConfigureOAuth
-    {      
+    {
+        private readonly ILinkedInService _service;
 
-        public IConfiguration Configuration { get; set; }
-
-        public ConfigureOAuth(IConfiguration _configuration)
+        public ConfigureOAuth(ILinkedInService service)
         {
-            Configuration = _configuration;
+            _service = service;
         }
 
-        public void Register(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            
+        public void Register(IApplicationBuilder app, IHostingEnvironment env,IOptions<LinkedInSettings> linkedInSettings)
+        {            
             // Add the OAuth2 middleware
             app.UseOAuthAuthentication(new OAuthOptions
             {
                 // We need to specify an Authentication Scheme
                 AuthenticationScheme = "LinkedIn",
 
+                ClaimsIssuer = "OAuth2-LinkedIn",
+
                 // Configure the LinkedIn Client ID and Client Secret
-                ClientId = Configuration["linkedin:clientId"],
-                ClientSecret = Configuration["linkedin:clientSecret"],
+                ClientId = linkedInSettings.Value.ClientId,
+                ClientSecret = linkedInSettings.Value.ClientSecret,
 
                 // Set the callback path, so LinkedIn will call back to http://APP_URL/signin-linkedin
                 // Also ensure that you have added the URL as an Authorized Redirect URL in your LinkedIn application
-                CallbackPath = new PathString("/"),
+                CallbackPath = new PathString(linkedInSettings.Value.CallbackUrl),
 
                 // Configure the LinkedIn endpoints                
-                AuthorizationEndpoint = Configuration["linkedin:authorizationEndpoint"],
-                TokenEndpoint = Configuration["linkedin:tokenEndpoint"],
-                UserInformationEndpoint = Configuration["linkedin:userInformationEndpoint"],
+                AuthorizationEndpoint = linkedInSettings.Value.AuthorizationEndpoint,
+                TokenEndpoint = linkedInSettings.Value.TokenEndpoint,
+                UserInformationEndpoint = linkedInSettings.Value.UserInformationEndpoint,
 
                 Scope = { "r_basicprofile", "r_emailaddress" },
 
@@ -55,45 +53,32 @@ namespace Store.Web.Helpers
                     // parse the resulting JSON to extract the relevant information, and add the correct claims.
                     OnCreatingTicket = async context =>
                     {
-                        // Retrieve user info
+
                         var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint);
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", context.AccessToken);
                         request.Headers.Add("x-li-format", "json"); // Tell LinkedIn we want the result in JSON, otherwise it will return XML
 
                         var response = await context.Backchannel.SendAsync(request, context.HttpContext.RequestAborted);
                         response.EnsureSuccessStatusCode();
-
-                        // Extract the user info object
-                        var user = JObject.Parse(await response.Content.ReadAsStringAsync());
-
-                        // Add the Name Identifier claim
-                        var userId = user.Value<string>("id");
-                        if (!string.IsNullOrEmpty(userId))
+                        
+                        var myObject = new Models.LinkedIn.Profile();
+                        JsonConvert.PopulateObject(await response.Content.ReadAsStringAsync(), myObject);
+                       
+                        if (myObject != null)
                         {
-                            context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId, ClaimValueTypes.String, context.Options.ClaimsIssuer));
-                        }
+                            var currentPrincipal = Thread.CurrentPrincipal;
 
-                        // Add the Name claim
-                        var formattedName = user.Value<string>("formattedName");
-                        if (!string.IsNullOrEmpty(formattedName))
-                        {
-                            context.Identity.AddClaim(new Claim(ClaimTypes.Name, formattedName, ClaimValueTypes.String, context.Options.ClaimsIssuer));
-                        }
+                            if (currentPrincipal.Identity.IsAuthenticated)
+                            {
+                                myObject.UserId = currentPrincipal.GetUserId();
 
-                        // Add the email address claim
-                        var email = user.Value<string>("emailAddress");
-                        if (!string.IsNullOrEmpty(email))
-                        {
-                            context.Identity.AddClaim(new Claim(ClaimTypes.Email, email, ClaimValueTypes.String,
-                                context.Options.ClaimsIssuer));
-                        }
+                                var profile = _service.RetriveLinkedInProfile(myObject.id);
 
-                        // Add the Profile Picture claim
-                        var pictureUrl = user.Value<string>("pictureUrl");
-                        if (!string.IsNullOrEmpty(email))
-                        {
-                            context.Identity.AddClaim(new Claim("profile-picture", pictureUrl, ClaimValueTypes.String,
-                                context.Options.ClaimsIssuer));
+                                if (profile == null)
+                                {
+                                    _service.SaveLinkedInInfo(myObject);
+                                }
+                            }  
                         }
                     }
                 }

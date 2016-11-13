@@ -3,25 +3,25 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import {ProfileService} from './profile.service';
+import {ProfileManageService} from './profile-manage.service';
 import {IUser} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {IProfile} from '../../models/profile';
 
 @Component({
     selector:'profile',
-    template:require('./profile.html'),
-    providers:[ProfileService]
+    template:require('./profile-manage.html'),
+    providers: [ProfileManageService]
 })
 
-export class ProfileComponent{
+export class ProfileManageComponent{
      postItem:Array<Object>;
      errorMessage: boolean = false;
      code: Subscription;
      userResult: IUser;
      myProfile: IProfile;    
 
-     constructor(private profileService: ProfileService, private activatedRoute: ActivatedRoute, private userService: UserService){
+     constructor(private profileService: ProfileManageService, private activatedRoute: ActivatedRoute, private userService: UserService){
         this.getProfile();
      }
 

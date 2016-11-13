@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Metadata;
 using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
+using Portfolio.Web.Helpers;
 
 namespace Store.Web.Helpers
 {
     public class ConfigureApplication
     {
-        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; set; }
+        private ILogger _logger { get; } =  ApplicationLogging.CreateLogger<ConfigureApplication>();
+        private IConfiguration Configuration { get; set; }
 
         public ConfigureApplication(IConfiguration _configuration)
         {
@@ -31,46 +35,18 @@ namespace Store.Web.Helpers
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                LoginPath = new PathString("/login"),
-                LogoutPath = new PathString("/logout")
-            });
-
-           
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-            app.UseMvc();
-                        
-            app.Use(async (context, next) =>
-            {
-                await next();
-
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/index.html"; // Put your Angular root page here 
-                    await next();
-                }
-            });
-
-            // Used to register OAuth for linkedIn.
-           // new ConfigureOAuth(Configuration).Register(app, env);
-           
-        
             // Listen for requests on the /login path, and issue a challenge to log in with the LinkedIn middleware
             app.Map("/external-login", builder =>
-            {
+            {                
                 builder.Run(async context =>
                 {
+                    _logger.LogDebug("using external-loging");
+
                     // Return a challenge to invoke the LinkedIn authentication scheme
-                    await context.Authentication.ChallengeAsync("Auth0", properties: new AuthenticationProperties() { RedirectUri = "/" });
+                    await context.Authentication.ChallengeAsync("LinkedIn", properties: new AuthenticationProperties() { RedirectUri = "/profile/manage" });
                 });
             });
-        /*
+
             // Listen for requests on the /logout path, and sign the user out
             app.Map("/logout", builder =>
             {
@@ -83,7 +59,29 @@ namespace Store.Web.Helpers
                     context.Response.Redirect("/");
                 });
             });
-       */
+
+            // Route all unknown requests to app root
+            app.Use(async (context, next) =>
+            {
+                await next();
+                _logger.LogDebug("unknown requests....................");
+
+                // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
+                // Rewrite request to use app root
+                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html"; // Put your Angular root page here 
+                    context.Response.StatusCode = 200; // Make sure we update the status code, otherwise it returns 404
+                    await next();
+                }
+            });
+
+            // Serve wwwroot as root
+            app.UseFileServer();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            ///app.UseMvcWithDefaultRoute();
+            app.UseMvc();            
         }
     }
 }

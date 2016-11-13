@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Services;
 using Microsoft.Extensions.Logging;
 using Portfolio.ViewModels;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Portfolio.Web.Helpers;
+using DomainModels = Portfolio.Models;
+using AutoMapper;
+using Store.Web.Helpers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,8 +18,8 @@ namespace Portfolio.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        private static readonly ILogger<AccountController> _logger;
-
+        private ILogger _logger { get; } = ApplicationLogging.CreateLogger<AccountController>();
+        
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
@@ -51,9 +52,9 @@ namespace Portfolio.Web.Controllers
                 var username = loginModel.UserName;
                 var password = loginModel.Password;
 
-                var currentUser = _accountService.Authenticate(loginModel.UserName, loginModel.Password);
+                var user = _accountService.Authenticate(loginModel.UserName, loginModel.Password);
 
-                if (currentUser == null)
+                if (user == null)
                 {
                     return new Result
                     {
@@ -61,12 +62,16 @@ namespace Portfolio.Web.Controllers
                         Message = MessageType.InvalidUsernameOrPassword.ToString()
                     };
                 }
+                else {
+                    var helper = new ClaimsManager();
+                    helper.SetUserContext();
+                }
 
                 return new Result
                 {
                     Success = true,
                     Message = MessageType.SuccessfullyLoggedIn.ToString(),
-                    Content = currentUser
+                    Content = user
                 };
             }
             else

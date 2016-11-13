@@ -47,7 +47,8 @@ namespace Portfolio.Web.Helpers
             // and a lot more Services
 
             services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
-       
+            services.Configure<LinkedInSettings>(Configuration.GetSection("LinkedIn"));
+
             return services;
         }
     }

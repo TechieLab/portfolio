@@ -10,6 +10,7 @@ using DomainModel = Portfolio.Models;
 using AutoMapper;
 using DomainModels = Portfolio.Models;
 using Store.Web.Helpers;
+using Portfolio.Web.Helpers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,17 +18,13 @@ namespace Portfolio.Web.Controllers
 {
     public class UserController : BaseController<DomainModels.User, ViewModels.User>
     {
-        private readonly IUserService _userService;        
-        private readonly ILogger<UserController> _logger;
-        private readonly ILogger<ClaimsManager> _claimsManagerLogger;
-
-        public UserController(IUserService userService, ILogger<IUserService> serviceLogger, ILogger<UserController> logger, 
-            ILogger<ClaimsManager> claimsManagerLogger) 
-            : base(userService, serviceLogger)
+        private readonly IUserService _userService;
+        private ILogger _logger { get; } = ApplicationLogging.CreateLogger<UserController>();
+        
+        public UserController(IUserService userService) 
+            : base(userService)
         {
-            _userService = userService;
-            _claimsManagerLogger = claimsManagerLogger;
-            _logger = logger;
+            _userService = userService;           
         }
         
         // GET: api/users/username
@@ -43,7 +40,7 @@ namespace Portfolio.Web.Controllers
 
             var result = Mapper.Map<DomainModel.User, User>(user);
 
-            new ClaimsManager(_claimsManagerLogger).SetUserContext();
+            new ClaimsManager().SetUserContext();
 
             return result;
         }

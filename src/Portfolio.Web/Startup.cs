@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -63,12 +64,16 @@ namespace Portfolio.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<Auth0Settings> auth0Settings,
-            ILoggerFactory loggerFactory, IMongoDbManager manager, IUserService userService,
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<Auth0Settings> auth0Settings, IOptions<LinkedInSettings> linkedInSettings,
+            ILoggerFactory loggerFactory, 
+            IMongoDbManager manager, 
+            IUserService userService,
+            ILinkedInService service,
             IProfileService profileService)
         {
             _manager = manager;
 
+            loggerFactory.AddFile("logs/log.txt", LogLevel.Debug);
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -78,9 +83,22 @@ namespace Portfolio.Web
             //app.UseIISPlatformHandler();
             app.UseIdentity();
 
-            ConfigureOpenID.Configure(app, env, auth0Settings);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = "Cookies",
+                LoginPath = new PathString("/login"),
+                AccessDeniedPath = new PathString("/logout"),
+                CookieName = "auth-token",
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
 
-            new ConfigureApplication(Configuration).Register(app, env);            
+            //ConfigureOpenID.Configure(app, env, auth0Settings);
+
+            // Used to register OAuth for linkedIn.
+            new ConfigureOAuth(service).Register(app, env, linkedInSettings);
+
+            new ConfigureApplication(Configuration).Register(app, env);                                             
 
             new DatabaseInitService(userService, profileService, null).ValidateData();
         }

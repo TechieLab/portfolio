@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines type of the claim.
     /// </summary>
-    public class ClaimTypes
+    public class SecurityClaimTypes
     {
         ///// <summary>
         ///// Identifies the ID of the MTX user

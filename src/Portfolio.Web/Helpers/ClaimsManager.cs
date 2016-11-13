@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Portfolio.DAL.Impl;
+using Portfolio.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,8 @@ namespace Store.Web.Helpers
 {
     public class ClaimsManager
     {
-        private readonly ILogger<ClaimsManager> _logger;
-
-        public ClaimsManager(ILogger<ClaimsManager> logger)
-        {
-            _logger = logger;
-        }
-
+        private ILogger _logger { get; } = ApplicationLogging.CreateLogger<ClaimsManager>();
+        
         public void SetUserContext()
         {
             try
@@ -55,10 +51,10 @@ namespace Store.Web.Helpers
 
                     var claims = new List<Claim>
                                     {
-                                        new Claim(Portfolio.Core.Security.ClaimTypes.UserId, user.Id.ToString()),
-                                        new Claim(Portfolio.Core.Security.ClaimTypes.UserFullName, user.Name),
-                                        new Claim(Portfolio.Core.Security.ClaimTypes.PageSize, !string.IsNullOrEmpty(user.PageSize.ToString()) ? user.PageSize.ToString() : "20"),
-                                        new Claim(Portfolio.Core.Security.ClaimTypes.TimeOut, !string.IsNullOrEmpty(user.Timeout.ToString()) ?user.Timeout.ToString() : "30" )
+                                        new Claim(Portfolio.Core.Security.SecurityClaimTypes.UserId, user.Id.ToString()),
+                                        new Claim(Portfolio.Core.Security.SecurityClaimTypes.UserFullName, user.Name),
+                                        new Claim(Portfolio.Core.Security.SecurityClaimTypes.PageSize, !string.IsNullOrEmpty(user.PageSize.ToString()) ? user.PageSize.ToString() : "20"),
+                                        new Claim(Portfolio.Core.Security.SecurityClaimTypes.TimeOut, !string.IsNullOrEmpty(user.Timeout.ToString()) ?user.Timeout.ToString() : "30" )
                                     };
 
                     principal.AddIdentity(new ClaimsIdentity(claims));
