@@ -8,6 +8,7 @@ namespace Portfolio.Models.LinkedIn
     public class Profile
     {
         public string id { get; set; }
+        public string emailAddress { get; set; }
         public DateOfBirth dateOfBirth { get; set; }
         public Educations educations { get; set; }
         public string firstName { get; set; }

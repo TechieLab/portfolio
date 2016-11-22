@@ -15,7 +15,7 @@
         ///// </summary>
         public const string UserName = System.Security.Claims.ClaimTypes.Name;
 
-        ///// <summary>
+       //// <summary>
         ///// Identifies the role of the MTX user
         ///// </summary>
         public const string UserRole = System.Security.Claims.ClaimTypes.Role;

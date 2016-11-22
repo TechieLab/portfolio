@@ -6,6 +6,7 @@
     "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0",
     "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
     "Microsoft.AspNetCore.Identity": "1.0.0",
     //"Microsoft.NETCore.App": {
     //  "version": "1.0.0",

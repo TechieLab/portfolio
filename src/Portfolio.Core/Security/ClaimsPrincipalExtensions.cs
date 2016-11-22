@@ -98,5 +98,40 @@ namespace Portfolio.Core.Security
             }
             throw new ClaimNotFoundException(string.Format("pageSizeClaim claim not found in principal with Name={0}", principalName));
         }
+
+        public static string GetUserEmail(this IPrincipal principal)
+        {
+            if (principal == null) throw new ArgumentNullException("principal");
+            var claimsPrincipal = principal as ClaimsPrincipal;
+            if (claimsPrincipal == null)
+            {
+                throw new ArgumentException("principal is not a ClaimsPrincipal: " + principal, "principal");
+            }
+
+            var identities = claimsPrincipal.Identities.FirstOrDefault(i => i.AuthenticationType != "Forms");
+
+            if (identities == null)
+            {
+                throw new ArgumentException("identities is not a ClaimsIdentity: " + identities, "principal");
+            }
+
+            Claim emailClaim = identities.Claims.FirstOrDefault(c => c.Type == "Email");
+            // Claim userIdClaim = claimsPrincipal.Current.FindFirst(ClaimTypes.UserId);
+
+            if (emailClaim != null)
+            {
+                //if (log.IsDebugEnabled)
+                //{
+                //    log.DebugFormat("PageSize found in claim [{0}]", pageSizeClaim);
+                //}
+                return emailClaim.Value;
+            }
+            string principalName = null;
+            if (principal.Identity != null)
+            {
+                principalName = principal.Identity.Name;
+            }
+            throw new ClaimNotFoundException(string.Format("emailClaim claim not found in principal with Name={0}", principalName));
+        }
     }
 }

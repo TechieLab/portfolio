@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -90,7 +91,12 @@ namespace Portfolio.Web
                 AccessDeniedPath = new PathString("/logout"),
                 CookieName = "auth-token",
                 AutomaticAuthenticate = true,
-                AutomaticChallenge = true
+                AutomaticChallenge = true,
+                Events = new CookieAuthenticationEvents
+                {
+                    // Set other options
+                    OnValidatePrincipal = LastChangedValidator.ValidateAsync
+                }
             });
 
             //ConfigureOpenID.Configure(app, env, auth0Settings);

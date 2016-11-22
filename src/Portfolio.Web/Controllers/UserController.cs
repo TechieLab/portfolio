@@ -39,8 +39,7 @@ namespace Portfolio.Web.Controllers
             var user = _userService.GetBy(l => l.UserName == userName).FirstOrDefault();           
 
             var result = Mapper.Map<DomainModel.User, User>(user);
-
-            new ClaimsManager().SetUserContext();
+                       
 
             return result;
         }

@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using Portfolio.Core.Security;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Portfolio.Web.Helpers
 {
@@ -21,8 +23,8 @@ namespace Portfolio.Web.Helpers
             _service = service;
         }
 
-        public void Register(IApplicationBuilder app, IHostingEnvironment env,IOptions<LinkedInSettings> linkedInSettings)
-        {            
+        public void Register(IApplicationBuilder app, IHostingEnvironment env, IOptions<LinkedInSettings> linkedInSettings)
+        {
             // Add the OAuth2 middleware
             app.UseOAuthAuthentication(new OAuthOptions
             {
@@ -60,29 +62,38 @@ namespace Portfolio.Web.Helpers
 
                         var response = await context.Backchannel.SendAsync(request, context.HttpContext.RequestAborted);
                         response.EnsureSuccessStatusCode();
-                        
+
+
+                       
+
                         var myObject = new Models.LinkedIn.Profile();
                         JsonConvert.PopulateObject(await response.Content.ReadAsStringAsync(), myObject);
-                       
+
                         if (myObject != null)
                         {
-                            var currentPrincipal = Thread.CurrentPrincipal;
+                            var userId = myObject.id;
+                            if (!string.IsNullOrEmpty(userId))
+                            {                                 
+                                var claims = new List<Claim>
+                                    {
+                                        new Claim(Core.Security.SecurityClaimTypes.UserId, myObject.id.ToString()),
+                                        new Claim(Core.Security.SecurityClaimTypes.UserFullName, myObject.firstName + ' ' + myObject.lastName ),
+                                        new Claim(Core.Security.SecurityClaimTypes.UserEmail, myObject.emailAddress)
+                                    };
 
-                            if (currentPrincipal.Identity.IsAuthenticated)
-                            {
-                                myObject.UserId = currentPrincipal.GetUserId();
+                                context.Identity.AddClaims(claims);
 
-                                var profile = _service.RetriveLinkedInProfile(myObject.id);
+                                var profile = _service.RetriveLinkedInProfile(myObject.emailAddress);
 
                                 if (profile == null)
                                 {
                                     _service.SaveLinkedInInfo(myObject);
                                 }
-                            }  
+                            }    
                         }
                     }
                 }
-            });                       
+            });
         }
     }
 }
