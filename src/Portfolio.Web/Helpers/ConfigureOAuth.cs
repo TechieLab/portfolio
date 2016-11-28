@@ -61,10 +61,7 @@ namespace Portfolio.Web.Helpers
                         request.Headers.Add("x-li-format", "json"); // Tell LinkedIn we want the result in JSON, otherwise it will return XML
 
                         var response = await context.Backchannel.SendAsync(request, context.HttpContext.RequestAborted);
-                        response.EnsureSuccessStatusCode();
-
-
-                       
+                        response.EnsureSuccessStatusCode();                       
 
                         var myObject = new Models.LinkedIn.Profile();
                         JsonConvert.PopulateObject(await response.Content.ReadAsStringAsync(), myObject);
@@ -73,23 +70,25 @@ namespace Portfolio.Web.Helpers
                         {
                             var userId = myObject.id;
                             if (!string.IsNullOrEmpty(userId))
-                            {                                 
-                                var claims = new List<Claim>
+                            {  
+                                var profile = _service.RetriveLinkedInProfile(myObject.emailAddress);
+
+                                if (profile == null)
+                                {  
+                                    _service.SaveLinkedInInfo(myObject);
+                                }
+                            }    
+                        }
+
+                        if (string.IsNullOrEmpty(context.HttpContext.User.GetUserId())) {
+                            var claims = new List<Claim>
                                     {
                                         new Claim(Core.Security.SecurityClaimTypes.UserId, myObject.id.ToString()),
                                         new Claim(Core.Security.SecurityClaimTypes.UserFullName, myObject.firstName + ' ' + myObject.lastName ),
                                         new Claim(Core.Security.SecurityClaimTypes.UserEmail, myObject.emailAddress)
                                     };
 
-                                context.Identity.AddClaims(claims);
-
-                                var profile = _service.RetriveLinkedInProfile(myObject.emailAddress);
-
-                                if (profile == null)
-                                {
-                                    _service.SaveLinkedInInfo(myObject);
-                                }
-                            }    
+                            context.Identity.AddClaims(claims);
                         }
                     }
                 }
