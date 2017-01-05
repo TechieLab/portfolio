@@ -95,7 +95,7 @@ namespace Portfolio.Web
                 Events = new CookieAuthenticationEvents
                 {
                     // Set other options
-                    OnValidatePrincipal = LastChangedValidator.ValidateAsync
+                   // OnValidatePrincipal = LastChangedValidator.ValidateAsync
                 }
             });
 

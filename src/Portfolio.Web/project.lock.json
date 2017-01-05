@@ -1963,10 +1963,10 @@
           "Portfolio.Models": "1.0.0"
         },
         "compile": {
-          "dnx451/Portfolio.DAL.dll": {}
+          "dnx451/PortFolio.DAL.dll": {}
         },
         "runtime": {
-          "dnx451/Portfolio.DAL.dll": {}
+          "dnx451/PortFolio.DAL.dll": {}
         }
       },
       "PortFolio.DAL.Impl/1.0.0": {
@@ -1982,10 +1982,10 @@
           "Portfolio.Models": "1.0.0"
         },
         "compile": {
-          "dnx451/Portfolio.DAL.Impl.dll": {}
+          "dnx451/PortFolio.DAL.Impl.dll": {}
         },
         "runtime": {
-          "dnx451/Portfolio.DAL.Impl.dll": {}
+          "dnx451/PortFolio.DAL.Impl.dll": {}
         }
       },
       "Portfolio.Models/1.0.0": {
@@ -5292,12 +5292,12 @@
     "PortFolio.DAL/1.0.0": {
       "type": "project",
       "path": "../PortFolio.DAL/project.json",
-      "msbuildProject": "../PortFolio.DAL/Portfolio.DAL.xproj"
+      "msbuildProject": "../PortFolio.DAL/PortFolio.DAL.xproj"
     },
     "PortFolio.DAL.Impl/1.0.0": {
       "type": "project",
       "path": "../PortFolio.DAL.Impl/project.json",
-      "msbuildProject": "../PortFolio.DAL.Impl/Portfolio.DAL.Impl.xproj"
+      "msbuildProject": "../PortFolio.DAL.Impl/PortFolio.DAL.Impl.xproj"
     },
     "Portfolio.Models/1.0.0": {
       "type": "project",
