@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-7">
          
-            <div class="post text clearfix panel panel-default" *ngFor="let post of pagedItems | dateFilter; #i = index;">
+            <div class="post text clearfix panel panel-default" *ngFor="let post of pagedItems; let i = index;">
              <div class="panel-body">
-                <h2><a [routerLink]="post.pageUrl">
+                <h2><a routerLink="post.pageUrl">
                       {{post.title}}</a>
                         </h2>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.date_label}}</p>

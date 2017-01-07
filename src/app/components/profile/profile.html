@@ -49,7 +49,7 @@
                                 <h3>Summary</h3>
                               </div>
 
-                              <p style="text-align: left;word-break: break-word;" [innerHTML] = "listItem?.summary | newline">
+                              <p style="text-align: left;word-break: break-word;" [innerHTML] = "listItem?.summary">
                               
                               </p>
                             </div>
@@ -62,7 +62,7 @@
                               <div class="qn">
                                 <h3>Publications</h3>
                               </div>
-                              <div *ngFor="#item of listItem?.publications?.values">
+                              <div *ngFor="let item of listItem?.publications?.values">
                                 <h4><p style="font-s">{{item?.title}}</p></h4>
                                 <h5 class="pull-left">{{item?.publisher?.name}}</h5>
                                 <h5 class="pull-right">{{item?.date?.day}}/{{item?.date?.day}}/{{item?.date?.year}}</h5>
@@ -84,7 +84,7 @@
                                   <h5 style="text-align: left;word-break: break-word;">
                                       Karamvir Dadasaheb Kannamwar Engineering College, Nandanvan
                                   </h5>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.courses?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.courses?.values">
                                    <span>{{item?.name}}</span>
                                  </li>
                               </ul>
@@ -98,7 +98,7 @@
                                 <h3>Languages</h3>
                               </div>
                               <ul>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.languages?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.languages?.values">
                                    <div>
                                       <strong>{{item?.language?.name}}</strong>
                                       <p>
@@ -118,7 +118,7 @@
                                 <h3>Work Experiences</h3>
                               </div>
                               <ul>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.threePastPositions?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.threePastPositions?.values">
                                    <h4 style="text-align: left;word-break: break-word;">
                                        {{item?.title}}
                                    </h4>
@@ -141,7 +141,7 @@
                                 <h3>Educations</h3>
                               </div>
                               <ul>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.educations?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.educations?.values">
                                    <h5 style="text-align: left;word-break: break-word;">
                                      {{item?.schoolName}}
                                   </h5>
@@ -159,7 +159,7 @@
                                 <h3>Certifications</h3>
                               </div>
                               <ul>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.certifications?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.certifications?.values">
                                    <h5 style="text-align: left;word-break: break-word;">
                                      {{item?.name}}
                                   </h5>
@@ -181,7 +181,7 @@
                                   <h5 style="text-align:left;word-break: break-word;">
                                         My Skills::
                                   </h5>
-                                 <li style="float: left;width: auto !important;margin: 0 6px 4px 5px; background:#ccc;border-radius:4px;" *ngFor="#item of listItem?.skills?.values">
+                                 <li style="float: left;width: auto !important;margin: 0 6px 4px 5px; background:#ccc;border-radius:4px;" *ngFor="let item of listItem?.skills?.values">
                                      {{item?.skill?.name}}
                                  </li>
                               </ul>
@@ -210,7 +210,7 @@
                                   <h5 style="text-align:left;word-break: break-word;">
                                       Causes I care about::
                                   </h5>
-                                 <li style="text-align:left;" *ngFor="#item of listItem?.volunteer?.causes?.values">
+                                 <li style="text-align:left;" *ngFor="let item of listItem?.volunteer?.causes?.values">
                                     {{item?.name}}
                                  </li>
                               </ul>
@@ -222,7 +222,7 @@
                          <div class="qf b aml">      
                           <h3 class="ald">Recommendations</h3>
                           <ul class="qo anx">
-                            <li class="qf alm clearfix" *ngFor="#item of listItem?.recommendationsReceived?.values" >
+                            <li class="qf alm clearfix" *ngFor="let item of listItem?.recommendationsReceived?.values" >
                               <a class="qj" href="#">
                                 <img class="qh cu" [src]="item?.recommender?.pictureUrl">
                               </a>

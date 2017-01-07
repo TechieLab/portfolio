@@ -1,11 +1,10 @@
 import { NgModule }      from '@angular/core';
 import { FormsModule }   from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-
+import {CommonModule} from '@angular/common';
 import {BlogComponent} from './blog.component';
 
 @NgModule({
-    imports: [FormsModule, BrowserModule],
+    imports: [FormsModule, CommonModule],
     declarations: [BlogComponent],
     exports: [BlogComponent],
     providers: [],

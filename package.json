@@ -42,7 +42,6 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
-    "highcharts-ng": "0.0.13",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.21.0",
     "http": "0.0.0",

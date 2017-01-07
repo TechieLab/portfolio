@@ -1,10 +1,8 @@
 import {Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import {MyWorkService} from '../my-work/my-work.service';
 
 declare var $ : any;
-declare var Highcharts : any;
 declare var IsoGrid : any;
 
 

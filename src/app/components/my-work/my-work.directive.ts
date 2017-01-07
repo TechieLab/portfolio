@@ -1,6 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, Renderer,OnInit } from '@angular/core';
 declare var $ : any;
-declare var Highcharts : any;
 declare var IsoGrid : any;
 declare var dynamics : any;
 declare var classie : any;

@@ -54,6 +54,7 @@ base(io);
 
 // Set the port for this app
 let port = process.env.PORT || 8080;
+process.env.NODE_ENV = 'development';
 
 // Load Mongoose config file for connecting to MongoDB instance
 import mongooseConf from './config/mongoose.conf.js';

@@ -3,7 +3,7 @@ import {HeaderComponent} from '../header/header.component';
 import {RouterOutlet} from '@angular/router';
 
 @Component({
-   selector:'custom-layout',
+   selector:'layout',
    template: require('./layout.html'),   
    entryComponents: [HeaderComponent]
 })

@@ -123,6 +123,7 @@ var io = _socket2.default.listen(server);
 
 // Set the port for this app
 var port = process.env.PORT || 8080;
+process.env.NODE_ENV = 'development';
 
 // Load Mongoose config file for connecting to MongoDB instance
 

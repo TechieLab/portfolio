@@ -69,7 +69,7 @@
                 <div class="owl-carousel">
                     <div class="item" *ngFor="let item of projectList; let i = index">
                      <div class="rpl">
-                        <a [routerLink]="['/work/' + item?.link]" class="rpl">
+                        <a routerLink="['/work/' + item?.link]" class="rpl">
                             <img class="img-responsive portfolio-item"  [src]="item?.displayImage" [alt]="item?.title" />
                         </a>
                      </div>

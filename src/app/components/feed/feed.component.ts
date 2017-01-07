@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
- selector:'my-feed',
+ selector:'feed',
  template:require('./feed.html')
 })
 

@@ -1,7 +1,7 @@
 import { NgModule , CUSTOM_ELEMENTS_SCHEMA}      from '@angular/core';
 import {HomeComponent} from './home.component';
 import { FormsModule }   from '@angular/forms';
-
+import { CommonModule }   from '@angular/common';
 import {ProfileComponent} from '../profile/profile.component';
 import {ProfileWidgetComponent} from '../profile-widget/profile-widget.component';
 import {ProfileAboutWidgetComponent} from '../profile-about-widget/profile-about-widget.component';
@@ -16,7 +16,7 @@ import {WebDesignWidgetComponent} from '../svg/webDesign';
 import {WebDevelopmentWidgetComponent} from '../svg/WebDevelopment';
 
 @NgModule({
-    imports: [ FormsModule ],
+    imports: [ FormsModule,CommonModule ],
     declarations: [HomeComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [HomeComponent],

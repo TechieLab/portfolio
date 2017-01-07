@@ -10,26 +10,26 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',        
+    'vendor': './src/vendor.ts',
     'app': './src/main.ts'
   },
 
   output: {
-        pathinfo: true,
-        path: './dist/client',
-        publicPath: 'http://localhost:3030/',
-        filename: '[name].bundle.js',
-        chunkFilename: '[id].chunk.js'
-    },
+    pathinfo: true,
+    path: './dist/client',
+    publicPath: 'http://localhost:3030/',
+    filename: '[name].bundle.js',
+    chunkFilename: '[id].chunk.js'
+  },
 
   //target: 'node', // in order to ignore built-in modules like path, fs, etc. 
 
   //externals: [nodeExternals()],
 
-  devtool: 'eval', 
+  devtool: 'eval',
 
   resolve: {
-     modulesDirectories: [ 
+    modulesDirectories: [
       'node_modules'
     ],
     extensions: ['', '.js', '.ts']
@@ -39,7 +39,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        exclude:[/node_modules/],
+        exclude: [/node_modules/],
         loaders: ['ts']
       },
       {
@@ -56,8 +56,8 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
       },
       {
-         test: /\.scss$/,
-         loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+        test: /\.scss$/,
+        loaders: ["style", "css?sourceMap", "sass?sourceMap"]
       }
     ]
   },
@@ -78,7 +78,7 @@ module.exports = {
     //}),
 
     new HtmlWebpackPlugin({
-        template: './src/index.html'
+      template: './src/index.html'
     }),
 
     new CopyWebpackPlugin([{
@@ -86,11 +86,18 @@ module.exports = {
       to: './assets'
     }]),
 
-     new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery',
-            'window.jQuery': 'jquery'
-        })
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
+
+    function () {
+      this.plugin('watch-run', function (watching, callback) {
+        console.log('Begin compile at ' + new Date());
+        callback();
+      })
+    }
   ]
 };

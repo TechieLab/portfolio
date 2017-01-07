@@ -7,6 +7,8 @@ import {LayoutModule} from './components/layout/layout.module';
 import {AccountModule} from './components/account/account.module';
 import { AUTH_PROVIDERS }      from 'angular2-jwt';
 import { ValueProvider } from '@angular/core';
+import {LayoutComponent} from './components/layout/layout.component';
+import { IsometricGrid } from './components/my-work/my-work.directive';
 
 import { routing,
     appRoutingProviders }  from './app.routes';
@@ -19,8 +21,7 @@ const WINDOW_PROVIDER: ValueProvider = {
 };
 
 @NgModule({
-    imports: [BrowserModule,
-        BrowserModule,
+    imports: [BrowserModule, 
         FormsModule,
         HttpModule,
         RouterModule,

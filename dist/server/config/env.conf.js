@@ -22,7 +22,7 @@ var config = {
   PORT: 3030,
   MONGO_URI: {
     DEVELOPMENT: "mongodb://localhost:27017/sourabhblog",
-    PRODUCTION: "mongodb://user:root@ds054289.mlab.com:54289/portfolio",
+    PRODUCTION: "mongodb://localhost:27017/sourabhblog",
     TEST: "mongodb://localhost:27017/sourabhblog"
   },
   SESSION_SECRET: "8DC22F3A81E7A779ABECE4C23B917"

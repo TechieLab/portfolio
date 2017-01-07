@@ -13,7 +13,6 @@ import {WebDesignWidgetComponent} from '../svg/webDesign';
 import {WebDevelopmentWidgetComponent} from '../svg/WebDevelopment';
 
 declare var $ : any;
-declare var Highcharts : any;
 
 @Component({
   selector: 'home',

@@ -2,10 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import {ProfileService} from './profile.service';
-import {NewlinePipe} from '../../pipes/utility';
+
 
 declare var $ : any;
-declare var Highcharts : any;
 declare var IsoGrid : any;
 
 @Component({
@@ -170,7 +169,7 @@ export class ProfileComponent implements OnInit{
                         name: 'Profile Vistors',
                         borderColor: '#286da5',
                         data: [{
-                            color: Highcharts.getOptions().colors[1],
+                            color: '#286da5',
                             radius: '65%',
                             innerRadius: '65%',
                             y: 65
@@ -306,22 +305,10 @@ export class ProfileComponent implements OnInit{
     }
 
     displaySkillsChart(chartsOption) {
-        Highcharts.chart('chart1', chartsOption, function () {
-          this.renderer.path([]).attr({'stroke-linecap': "butt",'zIndex': 10})
-          this.renderer.path().attr({ 'zIndex': 10})
-          this.renderer.path().attr({ 'zIndex': 10})
-
-        })
+       
     }
 
     ngOnInit(){
-          Highcharts.chart('chart2', this.profileOptions, function () {
-            this.renderer.path([]).attr({'stroke-linecap': "butt",'zIndex': 10})
-            this.renderer.path().attr({ 'zIndex': 10})
-            this.renderer.path().attr({ 'zIndex': 10})
-
-        })
-
-    
+             
     }
 }
